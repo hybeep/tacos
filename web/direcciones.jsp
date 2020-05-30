@@ -5,6 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@page import="user.UserActions"%>
+<%@page language="java" import="java.sql.*"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -51,9 +53,139 @@
                             <input type="submit" value="Guardar">
                         </form>
                         <h1>Direcciones guardadas</h1>
-                        <form action="verdirecciones">
-                            <input type="submit" placeholder="Ver tus direcciones">
-                        </form>
+                        <div align="center" width="200%" >
+                            <br>
+                            <h2>
+                                Consulta
+                            </h2>
+                            <br>
+                            <div align="left" width="200%" >
+                            </div>
+                            <br>
+                            <table border="1" borderColor="black">
+                                <tbody>
+                                <td bgColor="cyan" width="150" align="center" >Ciudad
+
+                                </td>
+                                <td bgColor="cyan" width="290" align="center" >Codigo Postal
+
+                                </td>
+                                <td bgColor="cyan" width="290" align="center" >Colonia
+
+                                </td>
+                                <td bgColor="cyan" width="290" align="center" >#Exterior
+
+                                </td>
+                                <td bgColor="cyan" width="230" align="center" >#Interior
+
+                                </td>
+                                <td bgColor="cyan" width="290" align="center" >Calle
+
+                                </td>
+                                <td bgColor="cyan" width="290" align="center" >Eliminar
+
+                                </td>
+
+                                <% 
+                                    Connection con = UserActions.getConnection();
+                                    Statement st = con.createStatement();
+                                    ResultSet rs,rs2;
+                                    try{
+                                        Integer id = (Integer)session.getAttribute("id");
+
+                                        
+                                        String q = "Select id_mde from edireccioncliente where id_mu='"+id+"';";
+                                        rs = st.executeQuery(q);
+                                   
+                                    while(rs.next()){
+                                        int id_direccion = rs.getInt(2);
+                                        String q2 = "Select * from mdireccionentrega where id_mde='"+id_direccion+"';";
+                                        rs2 = st.executeQuery(q2);
+                                        int i = 1;
+                                        while(rs2.next()){
+
+                                            if(i == (i/2)*2){
+                                 %>
+
+                                 <tr>
+                                     <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs2.getString(2) %> 
+
+                                     </td>
+                                     <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs2.getInt(3) %> 
+
+                                     </td>
+                                     <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs2.getString(4) %> 
+
+                                     </td>
+                                    <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs2.getInt(5) %> 
+
+                                     </td>
+                                    <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs2.getInt(6) %> 
+
+                                     </td>
+                                     <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs2.getString(7) %> 
+
+                                     </td>
+                                     <td bgColor="lightgreen" valign="top" width="80" height="19" >
+                                        <form action="">
+                                            <input type="submit" value="Eliminar">
+                                        </form>
+                                     </td>
+
+                                 </tr>
+
+                                 <% 
+                                        }else{%>
+
+
+                                   <tr>
+                                     <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs.getString(1) %> 
+
+                                     </td>
+                                     <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs.getString(3) %> 
+
+                                     </td>
+                                     <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs.getString(4) %> 
+
+                                     </td>
+                                    <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs.getString(5) %> 
+
+                                     </td>
+                                    <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs.getString(7) %> 
+
+                                     </td>
+                                    <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs.getString(10) %> 
+
+                                     </td>
+
+                                 </tr>
+
+                                <%         }
+                                     i++;
+                                        }
+                                }
+
+                                        rs.close();
+                                        st.close();
+                                        con.close();
+
+
+
+                                    }catch(Exception e){
+                                        System.out.println("Error, Fallo de conexion con la BD");
+                                        System.out.println(e.getMessage());
+                                        System.out.println(e.getStackTrace());
+                                    }
+
+                                %>
+
+                                </tbody>
+
+                            </table>
+
+
+                        </div>
+                        
                     </section>
                 </section>
                 <footer class="pie_de_pagina" id="pie_de_pagina">
