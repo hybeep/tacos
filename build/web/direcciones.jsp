@@ -4,6 +4,8 @@
     Author     : tutus
 --%>
 
+<%@page import="java.util.ArrayList"%>
+<%@page import="user.Direccion"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="user.UserActions"%>
 <%@page language="java" import="java.sql.*"%>
@@ -43,7 +45,26 @@
                     </aside>
                     <section class="productos" id="productos">
                         <h1>Crear nueva direccion</h1>
-                        <form action="">
+                        <form action="direcciones.jsp" method ="post">
+                            <%
+                                String ciudad = (String) request.getAttribute("ciudad"),
+                                colonia = (String) request.getAttribute("colonia"),
+                                calle = (String) request.getAttribute("calle");
+
+                                int cp = (int) request.getAttribute("cp"),
+                                interior = (int) request.getAttribute("int"),
+                                exterior = (int) request.getAttribute("ext");
+
+                                Direccion d = new Direccion();
+                                d.setCiudad(ciudad);
+                                d.setColonia(colonia);
+                                d.setCalle(calle);
+                                d.setCp(cp);
+                                d.setNo_ext(exterior);
+                                d.setNo_int(interior);
+
+                                System.out.println(ciudad + colonia + calle + cp + exterior + interior);
+                            %>
                             Ciudad:<input type="text" name="ciudad" placeholder="Ingresa tu ciudad"><br>
                             Colonia:<input type="text" name="colonia" placeholder="Ingresa tu colonia"><br>
                             Codigo postal:<input type="text" name="cp" placeholder="Ingresa tu cp"><br>
@@ -96,14 +117,15 @@
                                         
                                         String q = "Select id_mde from edireccioncliente where id_mu='"+id+"';";
                                         rs = st.executeQuery(q);
-                                   
-                                    while(rs.next()){
-                                        int id_direccion = rs.getInt(2);
-                                        String q2 = "Select * from mdireccionentrega where id_mde='"+id_direccion+"';";
-                                        rs2 = st.executeQuery(q2);
-                                        int i = 1;
-                                        while(rs2.next()){
-
+                                        ArrayList<Integer> direccion = new ArrayList();
+                                        while(rs.next()){
+                                            direccion.add(rs.getInt(2));
+                                        }
+                                        
+                                        for(int i = 0;i < direccion.size();i++){
+                                            String q2 = "Select * from mdireccionentrega where id_mde='"+direccion.get(i)+"';";
+                                            rs2 = st.executeQuery(q2);
+                                       
                                             if(i == (i/2)*2){
                                  %>
 
@@ -135,7 +157,7 @@
                                  </tr>
 
                                  <% 
-                                        }else{%>
+                                            }else{%>
 
 
                                    <tr>
@@ -161,15 +183,11 @@
                                  </tr>
 
                                 <%         }
-                                     i++;
                                         }
-                                }
 
-                                        rs.close();
-                                        st.close();
-                                        con.close();
-
-
+                                            rs.close();
+                                            st.close();
+                                            con.close();
 
                                     }catch(Exception e){
                                         System.out.println("Error, Fallo de conexion con la BD");

@@ -24,6 +24,10 @@
         <servlet-name>UserRegister</servlet-name>
         <servlet-class>user.UserRegister</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DirectionRegister</servlet-name>
+        <servlet-class>user.DirectionRegister</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Direccion</servlet-name>
         <url-pattern>/Direccion</url-pattern>
@@ -47,6 +51,10 @@
     <servlet-mapping>
         <servlet-name>UserRegister</servlet-name>
         <url-pattern>/UserRegister</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DirectionRegister</servlet-name>
+        <url-pattern>/DirectionRegister</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
