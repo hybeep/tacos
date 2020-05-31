@@ -23,7 +23,7 @@
             </header>
                 <nav class="navegacion" id="navegacion">
                     <ul>
-                        <li><a href="">Logo</a></li>
+                        <li><img src="multimedia/logo.png" heigth="40" width="160"></li>
                         <li><a href="registro.jsp">Registrarse</a></li>
                     </ul>
                 </nav>

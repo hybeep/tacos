@@ -31,7 +31,7 @@ body{
 
 }
 .navegacion{
-    background: rgb(172, 0, 172);
+    background: rgb(253, 139, 43);
 
 }
 .navegacion > ul{
@@ -50,7 +50,7 @@ body{
 }
 .navegacion > ul > li > a:hover{
     background-color: white;
-	color: rgb(184, 0, 184);
+	color: rgb(265, 139, 55);
 }
 .cuerpo{
     height: 80%;
@@ -124,7 +124,7 @@ body{
     width: 80%;
     margin: 5%;
     padding: 4%;
-    background-color: rgba(172, 0, 172,0.500);
+    background-color: rgba(253, 139, 43,0.500);
     color:white;
     font-size: medium;
     border-radius: 10px;
@@ -161,14 +161,14 @@ form{
 	outline: none;
 	border:none;
 	height: 20px;
-	background:rgb(172, 0, 172);
+	background:rgb(253, 139, 43);
 	color: white;
 	font-size: 12px;
 	border-radius: 20px;
 }
 .log_in input[type="submit"]:hover{
     background:white;
-	color: rgb(172, 0, 172);
+	color: rgb(253, 139, 43);
 }
 .log_in form .link-a{
     text-decoration: none;
@@ -176,7 +176,7 @@ form{
     font-size: 10px;
 }
 .log_in form a:hover{
-    color: rgb(172, 0, 172);
+    color: rgb(253, 139, 43);
 }
 .log_in .logo{
 	width: 30%;
