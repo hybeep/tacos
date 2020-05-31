@@ -1,7 +1,7 @@
 <%-- 
     Document   : direcciones
     Created on : 28/05/2020, 03:04:26 PM
-    Author     : tutus
+    Author     : tutus & PorfirioDamián
 --%>
 
 <%@page import="user.DireccionActions"%>
@@ -51,7 +51,8 @@
                         <form action="" method ="post">
                             <%
                                 Direccion d = new Direccion();
-                                Integer id = (Integer)request.getAttribute("id");
+                                Integer id_mu = (Integer)session.getAttribute("id");
+                                int id_direccion;
                                 
                                 if (request.getParameter("savedir")!=null){
                                     
@@ -61,13 +62,12 @@
                                 ciudad = request.getParameter("ciudad");
                                 colonia = request.getParameter("colonia");
                                 calle = request.getParameter("calle");
-                                
-
                                 cp = Integer.parseInt(request.getParameter("cp"));
                                 interior = Integer.parseInt(request.getParameter("int"));
                                 exterior = Integer.parseInt(request.getParameter("ext"));
 
                                 
+                                System.out.println(ciudad + cp + colonia + calle + interior + exterior + id_mu);
                                 d.setCiudad(ciudad);
                                 d.setColonia(colonia);
                                 d.setCalle(calle);
@@ -76,7 +76,7 @@
                                 d.setNo_int(interior);
                                 System.out.println(ciudad + colonia + calle + cp + exterior + interior);
                                     
-                                int estado = DireccionActions.GuardarDireccion(d, id);
+                                int estado = DireccionActions.GuardarDireccion(d, id_mu);
                                 
                                 if(estado > 0){
                                     response.sendRedirect("direcciones.jsp");
@@ -136,43 +136,42 @@
                                     Statement st = con.createStatement();
                                     ResultSet rs,rs2;
                                     try{
-                           
-                                        String q = "Select id_mde from edireccioncliente where id_mu='"+id+"';";
-                                        rs = st.executeQuery(q);
-                                        ArrayList<Integer> direccion = new ArrayList();
-                                        while(rs.next()){
-                                            direccion.add(rs.getInt(2));
-                                        }
+                                        int i = 0;
+                                            String q = "Select * from mdireccionentrega where id_mu = ("+id_mu+");";
+                                            rs = st.executeQuery(q);
+                                            
                                         
-                                        for(int i = 0;i < direccion.size();i++){
-                                            String q2 = "Select * from mdireccionentrega where id_mde='"+direccion.get(i)+"';";
-                                            rs2 = st.executeQuery(q2);
+                                        while(rs.next()){
+
                                        
                                             if(i == (i/2)*2){
                                  %>
 
                                  <tr>
-                                     <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs2.getString(2) %> 
+                                     
+
+                                     <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs.getString(2) %> 
 
                                      </td>
-                                     <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs2.getInt(3) %> 
+                                     <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs.getInt(3) %> 
 
                                      </td>
-                                     <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs2.getString(4) %> 
+                                     <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs.getString(4) %> 
 
                                      </td>
-                                    <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs2.getInt(5) %> 
+                                    <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs.getInt(5) %> 
 
                                      </td>
-                                    <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs2.getInt(6) %> 
+                                    <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs.getInt(6) %> 
 
                                      </td>
-                                     <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs2.getString(7) %> 
+                                     <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs.getString(7) %> 
 
                                      </td>
                                      <td bgColor="lightgreen" valign="top" width="80" height="19" >
                                         <form action="">
-                                            <input type="submit" value="Eliminar">
+                                            <input type="hidden" value="<%=rs.getInt(1)%>" name = "id_dirht">
+                                            <input type="submit" value="Eliminar" name="deletedir">
                                         </form>
                                      </td>
 
@@ -206,6 +205,30 @@
 
                                 <%         }
                                         }
+                                        try{
+
+                                            id_direccion = Integer.parseInt(request.getParameter("id_dirht"));
+                                            if(request.getParameter("deletedir") != null){
+
+                                                System.out.println(id_direccion);
+                                                int statusdelete = 0;
+                                                statusdelete = DireccionActions.EliminarDireccion(id_direccion, id_mu);
+                                                if(statusdelete > 0){
+                                                    System.out.println("Eliminacion de direccion exitosa");
+                                                    response.sendRedirect("direcciones.jsp");
+                                                }else{
+                                                    System.out.println("Error al eliminar la direccion");
+                                                }
+                                            }
+
+                                        }catch(Exception e){
+
+                                            System.out.println("Error, Fallo al eliminar direccion");
+                                            System.out.println(e.getMessage());
+                                            System.out.println(e.getStackTrace());
+
+                                        }
+                                        
 
                                             rs.close();
                                             st.close();

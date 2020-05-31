@@ -29,7 +29,8 @@ public class DireccionActions {
                     + "calle = ?, "
                     + "cp = ?, "
                     + "no_int = ?, "
-                    + "no_ext = ? ";
+                    + "no_ext = ?, "
+                    + "id_mu = ?";
             
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, ex.getCiudad());
@@ -38,27 +39,14 @@ public class DireccionActions {
             ps.setInt(4, ex.getCp());
             ps.setInt(5, ex.getNo_int());
             ps.setInt(6, ex.getNo_ext());
+            ps.setInt(7, id_usu);
 
             
             status = ps.executeUpdate();
 
-            
-            
-            String sql3 ="select id_mde from MDireccionEntrega where colonia = '"+ex.getColonia()
-                    +"' and ciudad = '"+ex.getCiudad()
-                    +"' amd cp = ("+ex.getCp()
-                    +") and calle ='"+ex.getCalle()
-                    +"' and no_int =("+ex.getNo_int()
-                    +") and no_ext = ("+ex.getNo_ext()+")";
-            rs = st.executeQuery(sql3);
-            int id_direccion = rs.getInt("id_mde");
-            
-            String sql4 = "insert into edireccioncliente (id_mde,id_mu) values ("+id_direccion+","+id_usu+")";
-            st.executeQuery(sql4);
-
             con.close();
         }catch(SQLException ed){
-            System.out.println("No conecto a la tabla");
+            System.out.println("No conecto a la tabla error con id");
             System.out.println(ed.getMessage());
             System.out.println(ed.getStackTrace());
         }
@@ -87,18 +75,13 @@ public class DireccionActions {
         return status;
     }
    
-    public static int EliminarDireccion(User e){
+    public static int EliminarDireccion(int id_dir, int id_usu){
         int status = 0;
         try{
             Connection con = UserActions.getConnection();
-            String sql= "delete from MDireccionEntrega"
-                    + "where email_mu = ?";
+            String sql= "delete from MDireccionEntrega where id_mde ="+id_dir+";";
             
             PreparedStatement ps = con.prepareStatement(sql);
-            ps.setString(1, e.getNom_mu());
-            ps.setString(2, e.getPass_mu());
-            ps.setString(3, e.getEmail_mu());
-            
             status = ps.executeUpdate();
             con.close();
         }catch(SQLException ed){

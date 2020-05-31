@@ -68,6 +68,7 @@
                                     response.sendRedirect("mainadmins.jsp");
                                 }else{
                                     session.setAttribute("email", email);
+                                    session.setAttribute("numlist",0);
                                     response.sendRedirect("main.jsp");
                                 }
                                     

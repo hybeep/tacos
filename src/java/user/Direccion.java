@@ -10,8 +10,25 @@ package user;
  * @author tutus
  */
 public class Direccion {
-    private int cp,no_int,no_ext;
+    private int cp,no_int,no_ext,id_mu,id_mde;
     private String ciudad, colonia,  calle;
+
+    public int getId_mde() {
+        return id_mde;
+    }
+
+    public void setId_mde(int id_mde) {
+        this.id_mde = id_mde;
+    }
+
+    
+    public int getId_mu() {
+        return id_mu;
+    }
+
+    public void setId_mu(int id_mu) {
+        this.id_mu = id_mu;
+    }
 
     public int getCp() {
         return cp;

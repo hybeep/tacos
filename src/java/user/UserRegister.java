@@ -46,9 +46,11 @@ public class UserRegister extends HttpServlet {
             
             if(estado > 0){
                 int id = UserActions.getIdByEmail(correo);
+                
                 HttpSession session=request.getSession();  
                 session.setAttribute("id",id);
                 session.setAttribute("email",correo);
+                session.setAttribute("numlist",0);
                 response.sendRedirect("main.jsp");
             }else{
                 System.out.println("Error al registrar");

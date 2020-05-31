@@ -4,6 +4,10 @@
     Author     : tutus
 --%>
 
+<%@page import="java.sql.ResultSet"%>
+<%@page import="user.UserActions"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.Connection"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -31,30 +35,88 @@
                     </ul>
                 </nav>
                 <section class="cuerpo" id="cuerpo">
-                    <aside class="lateral_izquierdo" id="lateral_izquierdo">
+                    <table border="1" borderColor="black">
+                    
+                </td>
+                <td bgColor="cyan" width="290" align="center" >Nombre del Producto
+                    
+                </td>
+                <td bgColor="cyan" width="290" align="center" >Precio
+                    
+                </td>
+                <td bgColor="cyan" width="290" align="center" >Stock
+                    
+                </td>
+                <td bgColor="cyan" width="230" align="center" >img
+                    
+                </td>
+                <td bgColor="cyan" width="290" align="center" >Descripción
+                    
+                </td>
+                <td bgColor="cyan" width="290" align="center" >Eliminar
+
+                </td>
+                    <%
+                    String prodlist = (String) session.getAttribute("prodlist");
+                    String[] prods = prodlist.split(",");
+                    Connection con = UserActions.getConnection();
+                    Statement st = con.createStatement();
+                    Statement st2 = con.createStatement();
+                    ResultSet rs,rs2;
+                    try{
+                        for (int i = 0; i < prods.length ; i++) {
+                            String q = "Select * from mtacos where id_mtacos="+prods[i];
+                            String q2 = "Select * from dtacos where id_taco="+prods[i];
+                            rs = st.executeQuery(q);
+                            rs2 = st2.executeQuery(q2);    
+                            while(rs.next() && rs2.next()){
+                    
                         
-                        
-                        
-                        
-                        
-                        
-                    </aside>
-                    <section class="productos" id="productos">
-                        
-                        
-                        
-                        
-                        
-                        
-                    </section>
-                </section>
+                    %>
+                    <tr>
+                     <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs.getString(2) %> 
+                     </td>
+                     
+                     <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs2.getFloat(2) %> 
+                     </td>
+                     
+                     <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs2.getInt(3) %> 
+                     </td>
+                     
+                     <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs2.getBlob(4) %> 
+                     </td>
+                     
+                     <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs2.getString(7) %> 
+                     </td>
+                     
+                     <td bgColor="lightgreen" valign="top" width="80" height="19" >
+                        <form action="eliminarcarrito.jsp">
+                            <input type="hidden" name="idprod" value="<%=rs.getInt(1)%>">
+                            <input type="submit" value="Eliminar del carrito">
+                        </form>
+                     </td>
+
+                 </tr>
+            
+                 <%
+                     }
+                    }
+                        st.close();
+                        con.close();
+                    }catch(Exception e){
+                        System.out.println("Error, Fallo de conexion con la BD");
+                        System.out.println(e.getMessage());
+                        System.out.println(e.getStackTrace());
+                    }
+                 %>
+                    </table>
+                 </section>
                 <footer class="pie_de_pagina" id="pie_de_pagina">
                     <h4>Contactanos en</h4>
                     <h5>facebook</h5> 
                     <h5>twiter</h5>
                     <h5>instagram</h5>
                 </footer>
-        </section> 
         <%
             }else{
                 response.sendRedirect("error.jsp");

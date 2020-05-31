@@ -4,6 +4,13 @@
     Author     : tutus
 --%>
 
+<%@page import="compra.CompraActions"%>
+<%@page import="java.sql.PreparedStatement"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.Connection"%>
+<%@page import="java.sql.Connection"%>
+<%@page import="user.UserActions"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -31,25 +38,17 @@
                     </ul>
                 </nav>
                 <section class="cuerpo" id="cuerpo">
-                    <aside class="lateral_izquierdo" id="lateral_izquierdo">
-                        
-                        
-                        
-                        
-                        
-                    </aside>
+                    
                     <section class="productos" id="productos">
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
+                        <h1>Tus tacoins:</h1><br>
+                            <%
+                                Integer id = (Integer)session.getAttribute("id");
+                                float tacoins = CompraActions.getTacoinsById(id);
+                                System.out.println(id+" "+tacoins);
+                                        
+                            %>
+                                    <p><%= tacoins %></p>
+                                    <p>Compra mas tacoins en OXXO</p>
                     </section>
                 </section>
                 <footer class="pie_de_pagina" id="pie_de_pagina">
