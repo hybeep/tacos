@@ -16,6 +16,9 @@
     </head>
 
     <body>
+        <%  
+            if(session.getAttribute("nivel") != null){
+        %>
         <section class="fondo" id="fondo">
             <header class="cabecera" id="cabecera">
                 <h1>TACO MASTER®</h1>
@@ -56,6 +59,9 @@
                 <td bgColor="cyan" width="290" align="center" >Celular
                     
                 </td>
+                <td bgColor="cyan" width="290" align="center" >Eliminar
+                    
+                </td>
                 
                 <% 
                     Connection con = UserActions.getConnection();
@@ -70,60 +76,37 @@
                         
                      
                         while(rs.next()){
- 
-                            if(i == (i/2)*2){
                  %>
                  
                  <tr>
                      <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs.getInt(1) %> 
-                         
                      </td>
+                     
                      <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs.getString(3) %> 
-                         
                      </td>
+                     
                      <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs.getString(4) %> 
-                         
                      </td>
+                     
                     <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs.getString(5) %> 
-                         
                      </td>
+                     
                     <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs.getString(7) %> 
-                         
                      </td>
+                     
                     <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs.getString(10) %> 
-                         
+                     </td>
+                     
+                     <td bgColor="lightgreen" valign="top" width="80" height="19" >
+                         <form action="eliminaruser.jsp">
+                            <input type="hidden" name="usert" value="<%=rs.getInt(1)%>">
+                            <input type="submit" value="Eliminar">
+                         </form>
                      </td>
 
                  </tr>
                  
                  <% 
-                        }else{%>
-                         
-                        
-                   <tr>
-                     <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs.getString(1) %> 
-                         
-                     </td>
-                     <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs.getString(3) %> 
-                         
-                     </td>
-                     <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs.getString(4) %> 
-                         
-                     </td>
-                    <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs.getString(5) %> 
-                         
-                     </td>
-                    <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs.getString(7) %> 
-                         
-                     </td>
-                    <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs.getString(10) %> 
-                         
-                     </td>
-
-                 </tr>
-                        
-                <%         }
-                     i++;
                         }
                         
                         rs.close();
@@ -143,5 +126,10 @@
             
             
         </div>
+        <%
+            }else{
+                response.sendRedirect("error.jsp");
+            }
+        %>
     </body>
 </html>

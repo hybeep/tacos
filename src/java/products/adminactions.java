@@ -41,11 +41,13 @@ public class adminactions {
             Connection con = adminactions.getConnection();
            
             String q = "insert into mtacos (nom_prod) values ('"+e.getNom_prod()+"')";
-            String q2 = "insert into dtacos (precio_taco,stock_taco,img_taco) value("+e.getPrecio() +","+e.getStock()+",x'"+e.getImg()+"')";
+            String q2 = "insert into dtacos (precio_taco,stock_taco,descripcion) value("+e.getPrecio() +","+e.getStock()+",'"+e.getDescripcion_prod()+"')";
            
             PreparedStatement ps = con.prepareStatement(q);
+            PreparedStatement ps2 = con.prepareStatement(q2);
            
             status = ps.executeUpdate();
+            status = ps2.executeUpdate();
             con.close();
        
         }catch(SQLException ed){

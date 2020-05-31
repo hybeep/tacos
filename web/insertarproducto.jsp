@@ -53,9 +53,6 @@
             <br>
             <form action="insertarproducto.jsp" method="post">
                 <%
-                    Connection con = UserActions.getConnection();
-                    Statement st = con.createStatement();
-                    ResultSet rs,rs2;
                     try{
                         String nombre = request.getParameter("nombre");
                         Float precio = Float.parseFloat(request.getParameter("precio"));
@@ -63,18 +60,20 @@
                         String img = request.getParameter("imagen");
                         byte[] bytes = img.getBytes();
                         Blob blob = new javax.sql.rowset.serial.SerialBlob(bytes);
+                        String desc = request.getParameter("desc");
                        
                         Producto e = new Producto();
                         e.setNom_prod(nombre);
                         e.setPrecio(precio);
                         e.setStock(stock);
-                        e.setImg(blob);
+                        e.setDescripcion_prod(desc);
+                        //e.setImg(blob);
                        
                         int status = adminactions.AgregarProd(e);
                        
-                        if (status>0 && request.getParameter("insertarprod")!=null) {
-                            response.sendRedirect("mainadmins");
-                        }else if(request.getParameter("insertarprod")!=null){
+                        if (status>0 && request.getParameter("insertaprod")!=null) {
+                            response.sendRedirect("mainadmins.jsp");
+                        }else if(request.getParameter("insertaprod")!=null){
                             out.println("<p>No se agrego correctamente</p>");
                         }
                                
@@ -88,6 +87,7 @@
                 Precio del producto:<input type="number" name="precio" placeholder="Precio"><br>
                 Stock del producto:<input type="number" name="stock" placeholder="Stock"><br>
                 Imagen del producto:<input type="file" name="imagen" placeholder="Imagen"><br>
+                Descripcion del producto:<input type="text" name="desc" placeholder="Descripcion"><br>
                 <input type="submit" name="insertaprod" value="Crear producto">
             </form>
         </div>

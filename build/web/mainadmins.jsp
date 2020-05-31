@@ -79,42 +79,41 @@
                 <% 
                     Connection con = UserActions.getConnection();
                     Statement st = con.createStatement();
+                    Statement st2 = con.createStatement();
                     ResultSet rs,rs2;
                     try{
-                        session.getAttribute("id");
-
-                        int i = 1;
                         String q = "Select * from mtacos";
-                        rs = st.executeQuery(q);
                         String q2 = "Select * from dtacos";
-                        rs2 = st.executeQuery(q2);
-                     
-                        while(rs.next()){
+                        rs = st.executeQuery(q);
+                        rs2 = st2.executeQuery(q2);
+                        int i=0;
+                        while(rs.next() && rs2.next()){
  
-                            if(i == (i/2)*2){
                  %>
                  
                  <tr>
                      <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs.getInt(1) %> 
-                         
                      </td>
+                     
+                     
                      <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs.getString(2) %> 
-                         
                      </td>
+                     
                      <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs2.getFloat(2) %> 
-                         
                      </td>
-                    <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs2.getInt(3) %> 
-                         
+                     
+                     <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs2.getInt(3) %> 
                      </td>
-                    <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs2.getBlob(4) %> 
-                         
+                     
+                     <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs2.getBlob(4) %> 
                      </td>
+                     
                      <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs2.getString(7) %> 
-                         
                      </td>
+                     
                      <td bgColor="lightgreen" valign="top" width="80" height="19" >
-                        <form action="">
+                        <form action="borrarproducto.jsp">
+                            <input type="hidden" name="idhide" value="<%=rs.getInt(1)%>">
                             <input type="submit" value="Eliminar">
                         </form>
                      </td>
@@ -122,41 +121,12 @@
                  </tr>
                  
                  <% 
-                        }else{%>
-                         
-                        
-                   <tr>
-                     <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs.getString(1) %> 
-                         
-                     </td>
-                     <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs.getString(3) %> 
-                         
-                     </td>
-                     <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs.getString(4) %> 
-                         
-                     </td>
-                    <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs.getString(5) %> 
-                         
-                     </td>
-                    <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs.getString(7) %> 
-                         
-                     </td>
-                    <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs.getString(10) %> 
-                         
-                     </td>
-
-                 </tr>
-                        
-                <%         }
-                     i++;
+                        i+=1;
                         }
-                        
+                        System.out.println(i);
                         rs.close();
                         st.close();
                         con.close();
-
-                        
-
                     }catch(Exception e){
                         System.out.println("Error, Fallo de conexion con la BD");
                         System.out.println(e.getMessage());
