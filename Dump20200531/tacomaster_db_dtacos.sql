@@ -16,29 +16,35 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `edireccioncliente`
+-- Table structure for table `dtacos`
 --
 
-DROP TABLE IF EXISTS `edireccioncliente`;
+DROP TABLE IF EXISTS `dtacos`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `edireccioncliente` (
-  `id_edc` int(11) NOT NULL AUTO_INCREMENT,
-  `id_mde` int(11) NOT NULL,
-  `id_mu` int(11) NOT NULL,
-  PRIMARY KEY (`id_edc`),
-  KEY `id_mde_fk` (`id_mde`),
-  CONSTRAINT `id_mde_fk` FOREIGN KEY (`id_mde`) REFERENCES `mdireccionentrega` (`id_mde`)
+CREATE TABLE `dtacos` (
+  `id_taco` int(11) NOT NULL AUTO_INCREMENT,
+  `precio_taco` decimal(19,2) NOT NULL,
+  `stock_taco` int(11) NOT NULL,
+  `img_taco` blob,
+  `id_mtacos` int(11) DEFAULT NULL,
+  `id_cc` int(11) DEFAULT NULL,
+  `descripcion` varchar(120) NOT NULL,
+  PRIMARY KEY (`id_taco`),
+  KEY `id_mtacos_fk` (`id_mtacos`),
+  KEY `id_cc_fk` (`id_cc`),
+  CONSTRAINT `id_cc_fk` FOREIGN KEY (`id_cc`) REFERENCES `ccomplementos` (`id_cc`),
+  CONSTRAINT `id_mtacos_fk` FOREIGN KEY (`id_mtacos`) REFERENCES `mtacos` (`id_mtacos`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `edireccioncliente`
+-- Dumping data for table `dtacos`
 --
 
-LOCK TABLES `edireccioncliente` WRITE;
-/*!40000 ALTER TABLE `edireccioncliente` DISABLE KEYS */;
-/*!40000 ALTER TABLE `edireccioncliente` ENABLE KEYS */;
+LOCK TABLES `dtacos` WRITE;
+/*!40000 ALTER TABLE `dtacos` DISABLE KEYS */;
+/*!40000 ALTER TABLE `dtacos` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -50,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-05-29 19:49:35
+-- Dump completed on 2020-05-31  0:09:30
