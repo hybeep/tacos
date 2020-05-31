@@ -1,5 +1,7 @@
 package products;
 
+import java.sql.Blob;
+
 /**
  *
  * @author PorfirioDamián & tutus
@@ -8,6 +10,15 @@ public class Producto {
     String nom_prod, descripcion_prod;
     int id_mprod, id_dprod, stock;
     float precio;
+    private Blob img;
+    
+    public Blob getImg() {
+         return img;
+     }
+
+     public void setImg(Blob img) {
+         this.img = img;
+     }
 
     public String getNom_prod() {
         return nom_prod;

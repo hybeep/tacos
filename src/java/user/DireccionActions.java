@@ -17,13 +17,12 @@ import java.sql.Statement;
  */
 public class DireccionActions {
 
-    public static int GuardarDireccion(Direccion ex, User e){
+    public static int GuardarDireccion(Direccion ex, int id_usu){
         int status = 0;
         try{
             Connection con = UserActions.getConnection();
             Statement st = con.createStatement(),st2 = con.createStatement();
             ResultSet rs, rs2;
-            int id_usuario = 0,id_direccion;
                         
             String sql= "insert into MDireccionEntrega set ciudad = ?, "
                     + "colonia = ?, "
@@ -39,20 +38,22 @@ public class DireccionActions {
             ps.setInt(4, ex.getCp());
             ps.setInt(5, ex.getNo_int());
             ps.setInt(6, ex.getNo_ext());
-            ps.setString(7, e.getEmail_mu());
+
             
             status = ps.executeUpdate();
 
-
-            String sql2 ="select id_mu from musuario where email_mu like '"+e.getEmail_mu()+"'";
-            rs = st.executeQuery(sql2);
-            id_usuario = rs.getInt("id_mu");
             
-            String sql3 ="select id_mu from MDireccionEntrega where colonia like '"+ex.getColonia()+"'";
+            
+            String sql3 ="select id_mde from MDireccionEntrega where colonia = '"+ex.getColonia()
+                    +"' and ciudad = '"+ex.getCiudad()
+                    +"' amd cp = ("+ex.getCp()
+                    +") and calle ='"+ex.getCalle()
+                    +"' and no_int =("+ex.getNo_int()
+                    +") and no_ext = ("+ex.getNo_ext()+")";
             rs = st.executeQuery(sql3);
-            id_direccion = rs.getInt("id_mde");
+            int id_direccion = rs.getInt("id_mde");
             
-            String sql4 = "insert into edireccioncliente (id_mde,id_mu) values ("+id_direccion+","+id_usuario+")";
+            String sql4 = "insert into edireccioncliente (id_mde,id_mu) values ("+id_direccion+","+id_usu+")";
             st.executeQuery(sql4);
 
             con.close();

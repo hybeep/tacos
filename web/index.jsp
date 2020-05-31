@@ -11,7 +11,7 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="css/master.css">
-    <script></script>
+    <script src="js/master.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
@@ -35,7 +35,7 @@
             <label for="" class="log_in">
                 <img class="logo" src="IMG/logo_e.jpg">
                 <h1>Iniciar Sesion</h1>
-                <form action="index.jsp">
+                <form action="" method="post">
                     
                     <%
                             String email,password;
@@ -46,16 +46,25 @@
                             User e = new User();
                             e.setEmail_mu(email);
                             e.setPass_mu(password);
+                            
+                            int status=0;
+                            
+                            if (request.getParameter("log")!=null){
+                                 status = UserActions.Loguear(e);
+                            }
 
-                            int status = UserActions.Loguear(e);
+                           
+                            
 
                             if (status > 0 && request.getParameter("log")!=null) {
+                                
                                 int id = UserActions.getIdByEmail(email);
                                 int lvl = UserActions.getNivelByEmail(email);
                                 session.setAttribute("id",id);
                                 System.out.println("datos sesion login"+session.getAttribute("email")+" "+session.getAttribute("id")+" "+session.getAttribute("nivel"));
                                 if (lvl == 1) {
                                     session.setAttribute("nivel", lvl);
+                                    
                                     response.sendRedirect("mainadmins.jsp");
                                 }else{
                                     session.setAttribute("email", email);
@@ -73,7 +82,7 @@
                     <label class="titulos" for="contra">Contraseña</label>
                     <input type="password" name="password" placeholder="Ingresa la contraseña">
         
-                    <input type="submit" name="log" value="Iniciar">
+                    <input type="submit" name="log" value="Iniciar" onclick="log())">
                     <a class="link-a" href="#">¿Olvidaste tu contraseña?</a><br>
                     <a class="link-a" href="#">¿No te has registrado aun?</a>
                 </form>

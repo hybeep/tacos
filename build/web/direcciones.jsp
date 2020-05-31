@@ -4,6 +4,7 @@
     Author     : tutus
 --%>
 
+<%@page import="user.DireccionActions"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="user.Direccion"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -29,9 +30,11 @@
                         <li><a href="billetera.jsp">TACOin</a></li>
                         <li><a href="carrito.jsp">Mi Carrito</a></li>
                         <li><a href="profile.jsp">Mi perfil</a></li>
-                        <form action="LogoutUser">
-                            <input type="submit" value="Cerrar sesion">
-                        </form>
+                        <li>
+                            <form action="LogoutUser">
+                                <input type="submit" value="Cerrar sesion">
+                            </form>
+                        </li>
                     </ul>
                 </nav>
                 <section class="cuerpo" id="cuerpo">
@@ -45,25 +48,46 @@
                     </aside>
                     <section class="productos" id="productos">
                         <h1>Crear nueva direccion</h1>
-                        <form action="direcciones.jsp" method ="post">
+                        <form action="" method ="post">
                             <%
-                                String ciudad = (String) request.getAttribute("ciudad"),
-                                colonia = (String) request.getAttribute("colonia"),
-                                calle = (String) request.getAttribute("calle");
-
-                                int cp = (int) request.getAttribute("cp"),
-                                interior = (int) request.getAttribute("int"),
-                                exterior = (int) request.getAttribute("ext");
-
                                 Direccion d = new Direccion();
+                                Integer id = (Integer)request.getAttribute("id");
+                                
+                                if (request.getParameter("savedir")!=null){
+                                    
+                                String ciudad, colonia, calle;
+                                int cp, exterior, interior;
+                                
+                                ciudad = request.getParameter("ciudad");
+                                colonia = request.getParameter("colonia");
+                                calle = request.getParameter("calle");
+                                
+
+                                cp = Integer.parseInt(request.getParameter("cp"));
+                                interior = Integer.parseInt(request.getParameter("int"));
+                                exterior = Integer.parseInt(request.getParameter("ext"));
+
+                                
                                 d.setCiudad(ciudad);
                                 d.setColonia(colonia);
                                 d.setCalle(calle);
                                 d.setCp(cp);
                                 d.setNo_ext(exterior);
                                 d.setNo_int(interior);
-
                                 System.out.println(ciudad + colonia + calle + cp + exterior + interior);
+                                    
+                                int estado = DireccionActions.GuardarDireccion(d, id);
+                                
+                                if(estado > 0){
+                                    response.sendRedirect("direcciones.jsp");
+                                }else{
+                                    System.out.println("Error al registrar");
+                                }    
+                                
+                                }
+                                
+                                
+                                
                             %>
                             Ciudad:<input type="text" name="ciudad" placeholder="Ingresa tu ciudad"><br>
                             Colonia:<input type="text" name="colonia" placeholder="Ingresa tu colonia"><br>
@@ -71,7 +95,7 @@
                             Calle:<input type="text" name="calle" placeholder="Ingresa tu calle"><br>
                             #Interior:<input type="text" name="int" placeholder="Ingresa tu numero interior"><br>
                             #Exterior:<input type="text" name="ext" placeholder="Ingresa tu numero exterior"><br>
-                            <input type="submit" value="Guardar">
+                            <input type="submit" value="Guardar" name = "savedir">
                         </form>
                         <h1>Direcciones guardadas</h1>
                         <div align="center" width="200%" >
@@ -112,9 +136,7 @@
                                     Statement st = con.createStatement();
                                     ResultSet rs,rs2;
                                     try{
-                                        Integer id = (Integer)session.getAttribute("id");
-
-                                        
+                           
                                         String q = "Select id_mde from edireccioncliente where id_mu='"+id+"';";
                                         rs = st.executeQuery(q);
                                         ArrayList<Integer> direccion = new ArrayList();

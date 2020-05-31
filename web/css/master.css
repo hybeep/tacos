@@ -10,6 +10,11 @@ body{
     background-color: whitesmoke;
     font-family: Verdana;
 }
+.cabeza{
+    margin-top: 0%;
+    width: 100%;
+    position: fixed ;
+}
 .fondo{
     background-color: white;
     height: 100%;
@@ -17,11 +22,17 @@ body{
     margin-top: 0;
 }
 .cabecera{
+    background-color: white;
+}
+.cabecera{
     padding-left: 40%;
     font-size: large;
+    width: 100%;
+
 }
 .navegacion{
     background: rgb(172, 0, 172);
+
 }
 .navegacion > ul{
     list-style: none;
@@ -43,26 +54,39 @@ body{
 }
 .cuerpo{
     height: 80%;
-    margin: 10%;
+    width: 100%;
     padding: 10%;
+    display: grid;
+    grid-gap: 50px;
+    grid-template-columns: repeat(3,1fr);
+    grid-template-rows: repeat(1 auto);
+}
+@media screen and(max-width: 50%){
+    .cuerpo > .lateral_izquierdo, .productos, .lateral_derecho{
+        grid-column: 1 / -1;
+    }
 }
 .lateral_izquierdo{
-    margin: 5%;
-    width: 20%;
-    max-width: 20%;
+
+    padding: 5%;
     float: left;
     background-color: lightgray;
 }
 .productos{
     padding: 5%;
-    width: 40%;
-    max-width: 40%;
     float: left;
+    display: grid;
+    grid-gap: 50px;
+    grid-template-columns: repeat(3,1fr);
+    grid-template-rows: repeat(1 auto);
+}
+@media screen and(max-width: 50%){
+    .productos > div{
+        grid-column: 1 / -1;
+    }
 }
 .lateral_derecho{
-    margin: 5%;
-    width: 20%;
-    max-width: 20%;
+
     float: left;
     background-color: lightgray;
 }
@@ -72,9 +96,9 @@ body{
     width: 100%;
     height: 20%;
     min-width:200px;
-    bottom: 0px;
-    position: relative;
-    padding: 5%;
+    margin-bottom: 0px;
+    position: fixed ;
+    padding: 3%;
 }
 .log{
     margin: 10%;

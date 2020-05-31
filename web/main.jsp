@@ -18,23 +18,31 @@
         <% if(session.getAttribute("email") != null){ 
         %>
         <section class="fondo" id="fondo">
-            <header class="cabecera" id="cabecera">
-                <h1>TACO MASTER®</h1>
-            </header>
-                <nav class="navegacion" id="navegacion">
-                    <ul>
-                        <li><a href="main.jsp">Pagina principal</a></li>
-                        <li><a href="billetera.jsp">TACOin</a></li>
-                        <li><a href="carrito.jsp">Mi Carrito</a></li>
-                        <li><a href="profile.jsp">Mi perfil</a></li>
-                        <form action="LogoutUser">
-                            <input type="submit" value="Cerrar sesion">
-                        </form>
-                    </ul>
-                </nav>
+            <section class="cabeza">
+                <header class="cabecera" id="cabecera">
+                    <h1>TACO MASTER®</h1>
+                </header>
+                    <nav class="navegacion" id="navegacion">
+                        <ul>
+                            <li><a href="main.jsp">Pagina principal</a></li>
+                            <li><a href="billetera.jsp">TACOin</a></li>
+                            <li><a href="carrito.jsp">Mi Carrito</a></li>
+                            <li><a href="profile.jsp">Mi perfil</a></li>
+                            <li>
+                                <form action="LogoutUser">
+                                    <input type="submit" value="Cerrar sesion">
+                                </form>
+                            </li>
+                        </ul>
+                    </nav>
+                </section>
+            
                 <section class="cuerpo" id="cuerpo">
                     <aside class="lateral_izquierdo" id="lateral_izquierdo">
-                        <h4>La historia de los tacos</h4>
+                        <h4>La historia de los tacos
+                            <center>Se dice que Moctezuma utilizaba la tortilla como una “cuchara” para sostener la comida, las cuales eran preparadas sobre piedras calientes y decoradas con cochinilla, frijol y chile. Mientras que las mujeres solían enviar la comida, en tortillas, a los hombres que trabajaban largas horas en el campo y así pudieran calentarla y comerla a la media jornada. 
+
+Y para la llegada de las carabelas españolas y sus cerdos, según Bernal Díaz del Castillo, los banquetes organizados por Hernán Cortés para sus soldados se basaban en platillos de carne de cerdo con tortillas. De hecho, en Historia Verdadera de la Conquista de la Nueva España, Coyoacán fue testigo de la primera taquiza en la historia. Desde ese entonces, el taco se convirtió en el platillo base que se consumía en todas zonas de la Conquista. </center></h4>
                         <p>Los tacos saben bien rico UwU</p>
                     </aside>
                     <section class="productos" id="productos">
