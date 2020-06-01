@@ -192,6 +192,11 @@ table{
 table > tbody{
     background-color: rgb(253, 139, 43);
 }
+table > thead > tr > th{
+    background-color: rgb(253, 139, 43);
+    font-size: medium;
+    color: white;
+}
 table > tbody > th{
     background-color: rgb(253, 139, 43);
     font-size: medium;

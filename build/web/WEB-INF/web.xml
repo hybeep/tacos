@@ -28,6 +28,14 @@
         <servlet-name>DirectionRegister</servlet-name>
         <servlet-class>user.DirectionRegister</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Controler</servlet-name>
+        <servlet-class>products.Controler</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ControlerImg</servlet-name>
+        <servlet-class>products.ControlerImg</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Direccion</servlet-name>
         <url-pattern>/Direccion</url-pattern>
@@ -55,6 +63,14 @@
     <servlet-mapping>
         <servlet-name>DirectionRegister</servlet-name>
         <url-pattern>/DirectionRegister</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Controler</servlet-name>
+        <url-pattern>/Controler</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ControlerImg</servlet-name>
+        <url-pattern>/ControlerImg</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

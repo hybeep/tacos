@@ -1,24 +1,30 @@
 package products;
 
-import java.sql.Blob;
+import java.io.InputStream;
 
 /**
  *
- * @author PorfirioDamián & tutus
+ * @author PorfirioDamián
  */
 public class Producto {
+
     String nom_prod, descripcion_prod;
     int id_mprod, id_dprod, stock;
     float precio;
-    private Blob img;
-    
-    public Blob getImg() {
-         return img;
-     }
+    InputStream img;
 
-     public void setImg(Blob img) {
-         this.img = img;
-     }
+    public Producto() {
+    }
+
+    public Producto(String nom_prod, String descripcion_prod, int id_mprod, int id_dprod, int stock, float precio, InputStream img) {
+        this.nom_prod = nom_prod;
+        this.descripcion_prod = descripcion_prod;
+        this.id_mprod = id_mprod;
+        this.id_dprod = id_dprod;
+        this.stock = stock;
+        this.precio = precio;
+        this.img = img;
+    }
 
     public String getNom_prod() {
         return nom_prod;
@@ -67,5 +73,15 @@ public class Producto {
     public void setPrecio(float precio) {
         this.precio = precio;
     }
+
+    public InputStream getImg() {
+        return img;
+    }
+
+    public void setImg(InputStream img) {
+        this.img = img;
+    }
+    
+    
     
 }
