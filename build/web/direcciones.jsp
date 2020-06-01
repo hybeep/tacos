@@ -47,8 +47,8 @@
                         </ul>
                     </aside>
                     <section class="productos" id="productos">
-                        <h1>Crear nueva direccion</h1>
                         <form action="" method ="post">
+                            <h1>Crear nueva direccion</h1>
                             <%
                                 Direccion d = new Direccion();
                                 Integer id_mu = (Integer)session.getAttribute("id");
@@ -97,9 +97,11 @@
                             #Exterior:<input type="text" name="ext" placeholder="Ingresa tu numero exterior"><br>
                             <input type="submit" value="Guardar" name = "savedir">
                         </form>
-                        <h1>Direcciones guardadas</h1>
-                        <div align="center" width="200%" >
+                        
+                        <div align="center" style="padding-left: 10%" width="200%" >
+                            <h1>Direcciones guardadas</h1>
                             <br>
+                            
                             <h2>
                                 Consulta
                             </h2>
@@ -109,27 +111,27 @@
                             <br>
                             <table border="1" borderColor="black">
                                 <tbody>
-                                <td bgColor="cyan" width="150" align="center" >Ciudad
+                                <th width="150" align="center" >Ciudad
 
-                                </td>
-                                <td bgColor="cyan" width="290" align="center" >Codigo Postal
+                                </th>
+                                <th width="290" align="center" >Codigo Postal
 
-                                </td>
-                                <td bgColor="cyan" width="290" align="center" >Colonia
+                                </th>
+                                <th width="290" align="center" >Colonia
 
-                                </td>
-                                <td bgColor="cyan" width="290" align="center" >#Exterior
+                                </th>
+                                <th width="290" align="center" >#Exterior
 
-                                </td>
-                                <td bgColor="cyan" width="230" align="center" >#Interior
+                                </th>
+                                <th width="230" align="center" >#Interior
 
-                                </td>
-                                <td bgColor="cyan" width="290" align="center" >Calle
+                                </th>
+                                <th width="290" align="center" >Calle
 
-                                </td>
-                                <td bgColor="cyan" width="290" align="center" >Eliminar
+                                </th>
+                                <th width="290" align="center" >Eliminar
 
-                                </td>
+                                </th>
 
                                 <% 
                                     Connection con = UserActions.getConnection();
@@ -150,25 +152,25 @@
                                  <tr>
                                      
 
-                                     <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs.getString(2) %> 
+                                     <td valign="top" width="80" height="19" ><%=rs.getString(2) %> 
 
                                      </td>
-                                     <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs.getInt(3) %> 
+                                     <td valign="top" width="80" height="19" ><%=rs.getInt(3) %> 
 
                                      </td>
-                                     <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs.getString(4) %> 
+                                     <td valign="top" width="80" height="19" ><%=rs.getString(4) %> 
 
                                      </td>
-                                    <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs.getInt(5) %> 
+                                    <td valign="top" width="80" height="19" ><%=rs.getInt(5) %> 
 
                                      </td>
-                                    <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs.getInt(6) %> 
+                                    <td valign="top" width="80" height="19" ><%=rs.getInt(6) %> 
 
                                      </td>
-                                     <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs.getString(7) %> 
+                                     <td valign="top" width="80" height="19" ><%=rs.getString(7) %> 
 
                                      </td>
-                                     <td bgColor="lightgreen" valign="top" width="80" height="19" >
+                                     <td valign="top" width="80" height="19" >
                                         <form action="">
                                             <input type="hidden" value="<%=rs.getInt(1)%>" name = "id_dirht">
                                             <input type="submit" value="Eliminar" name="deletedir">
@@ -182,22 +184,22 @@
 
 
                                    <tr>
-                                     <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs.getString(1) %> 
+                                     <td valign="top" width="80" height="19" ><%=rs.getString(1) %> 
 
                                      </td>
-                                     <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs.getString(3) %> 
+                                     <td valign="top" width="80" height="19" ><%=rs.getString(3) %> 
 
                                      </td>
-                                     <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs.getString(4) %> 
+                                     <td valign="top" width="80" height="19" ><%=rs.getString(4) %> 
 
                                      </td>
-                                    <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs.getString(5) %> 
+                                    <td valign="top" width="80" height="19" ><%=rs.getString(5) %> 
 
                                      </td>
-                                    <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs.getString(7) %> 
+                                    <td valign="top" width="80" height="19" ><%=rs.getString(7) %> 
 
                                      </td>
-                                    <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs.getString(10) %> 
+                                    <td valign="top" width="80" height="19" ><%=rs.getString(10) %> 
 
                                      </td>
 

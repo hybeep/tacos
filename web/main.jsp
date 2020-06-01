@@ -18,6 +18,16 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Document</title>
     </head>
+    <script>
+        function unableButton(no) {
+            var form = "form"+no;
+            var add = "add"+no;
+            document.getElementById(add).disabled = true; 
+            if(document.getElementById(add).disabled === true){
+                document.getElementById(form).submit();
+            }
+        }
+    </script>
     <body>
         <% if(session.getAttribute("email") != null){ 
         %>
@@ -41,9 +51,18 @@
                     </nav>
                 </section>
             
-                <section class="cuerpo" id="cuerpo">
-                        <h1>Taco Master</h1>
-                        <div align="center" width="200%" >
+            <section class="cuerpo" id="cuerpo">
+                <aside class="lateral_izquierdo" id="lateral_izquierdo">
+                    <h3>La historia de los tacos</h3>
+                    <h4>La historia de los tacos
+                        <center>Se dice que Moctezuma utilizaba la tortilla como una “cuchara” para sostener la comida, las cuales eran preparadas sobre piedras calientes y decoradas con cochinilla, frijol y chile. Mientras que las mujeres solían enviar la comida, en tortillas, a los hombres que trabajaban largas horas en el campo y así pudieran calentarla y comerla a la media jornada. 
+
+                        Y para la llegada de las carabelas españolas y sus cerdos, según Bernal Díaz del Castillo, los banquetes organizados por Hernán Cortés para sus soldados se basaban en platillos de carne de cerdo con tortillas. De hecho, en Historia Verdadera de la Conquista de la Nueva España, Coyoacán fue testigo de la primera taquiza en la historia. Desde ese entonces, el taco se convirtió en el platillo base que se consumía en todas zonas de la Conquista. </center></h4>
+                    <p>Los tacos saben bien rico UwU</p>
+                </aside>
+
+                <div align="center" width="200%" >
+                    <h1>Taco Master</h1>
             <br>
             <h2>
                 Consulta
@@ -53,26 +72,26 @@
             </div>
             <br>
             <table border="1" borderColor="black">
+            <tbody>
+               
+                <th  width="290" align="center" >Nombre del Producto
                     
-                </td>
-                <td bgColor="cyan" width="290" align="center" >Nombre del Producto
+                </th>
+                <th  width="290" align="center" >Precio
                     
-                </td>
-                <td bgColor="cyan" width="290" align="center" >Precio
+                </th>
+                <th  width="290" align="center" >Stock
                     
-                </td>
-                <td bgColor="cyan" width="290" align="center" >Stock
+                </th>
+                <th  width="230" align="center" >img
                     
-                </td>
-                <td bgColor="cyan" width="230" align="center" >img
+                </th>
+                <th  width="290" align="center" >Descripción
                     
-                </td>
-                <td bgColor="cyan" width="290" align="center" >Descripción
-                    
-                </td>
-                <td bgColor="cyan" width="290" align="center" >Agregar
+                </th>
+                <th  width="290" align="center" >Agregar
 
-                </td>
+                </th>
                 
                 <% 
                     Connection con = UserActions.getConnection();
@@ -84,36 +103,42 @@
                         String q2 = "Select * from dtacos";
                         rs = st.executeQuery(q);
                         rs2 = st2.executeQuery(q2);
+                        int i =1;
                         while(rs.next() && rs2.next()){
+                            String form = "form"+i;
+                            String id = "id"+i;
+                            String add = "add"+i;
  
                  %>
                  
                  <tr>
-                     <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs.getString(2) %> 
+                     <td valign="top" width="80" height="19" ><%=rs.getString(2) %> 
                      </td>
                      
-                     <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs2.getFloat(2) %> 
+                     <td valign="top" width="80" height="19" ><%=rs2.getFloat(2) %> 
                      </td>
                      
-                     <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs2.getInt(3) %> 
+                     <td valign="top" width="80" height="19" ><%=rs2.getInt(3) %> 
                      </td>
                      
-                     <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs2.getBlob(4) %> 
+                     <td valign="top" width="80" height="19" ><%=rs2.getBlob(4) %> 
                      </td>
                      
-                     <td bgColor="lightgreen" valign="top" width="80" height="19" ><%=rs2.getString(7) %> 
+                     <td valign="top" width="80" height="19" ><%=rs2.getString(7) %> 
                      </td>
                      
-                     <td bgColor="lightgreen" valign="top" width="80" height="19" >
-                        <form action="agregarcarrito.jsp">
-                            <input type="hidden" name="idprod" value="<%=rs.getInt(1)%>">
-                            <input type="submit" value="Agregar al carrito">
+                     <td valign="top" width="80" height="19" >
+                        <form id="<%=form%>" action="agregarcarrito.jsp">
+                            <input type="hidden" name="<%=id%>" id="<%=id%>" value="<%=rs.getInt(1)%>">
+                            <input type="hidden" name="i" id="<%=i%>" value="<%=i%>">
+                            <input type="button" value="Agregar al carrito" id="<%=add%>" onclick="unableButton(<%=i%>) " >
                         </form>
                      </td>
 
                  </tr>
                  
                  <% 
+                     i++;
                         }
                         rs.close();
                         st.close();
@@ -132,13 +157,13 @@
             
             
         </div>
-                </section>
-                <footer class="pie_de_pagina" id="pie_de_pagina">
-                    <h4>Contactanos en</h4>
-                    <h5>facebook</h5> 
-                    <h5>twiter</h5>
-                    <h5>instagram</h5>
-                </footer>
+        </section>
+        <footer class="pie_de_pagina" id="pie_de_pagina">
+            <h4>Contactanos en</h4>
+            <h5>facebook</h5> 
+            <h5>twiter</h5>
+            <h5>instagram</h5>
+        </footer>
         </section> 
         <%
             }else{

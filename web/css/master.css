@@ -53,7 +53,6 @@ body{
 	color: rgb(265, 139, 55);
 }
 .cuerpo{
-    height: 80%;
     width: 100%;
     padding: 10%;
     display: grid;
@@ -185,4 +184,34 @@ form{
     top: 0px;
     margin-top: -60%;
 	margin-left: calc(50% - 15%);
+}
+table{
+    border: 2px;
+    background-color: rgba(253, 139, 43,0.500);
+    border-radius:10px;
+}
+table > tbody{
+    background-color: rgb(253, 139, 43);
+}
+table > tbody > th{
+    background-color: rgb(253, 139, 43);
+    font-size: medium;
+    color: white;
+}
+table > tbody > tr > td{
+    background-color: white;
+    font-size: small;
+}
+input[type="submit"]{
+	outline: none;
+	border:none;
+	height: 20px;
+	background:rgb(253, 139, 43);
+	color: white;
+	font-size: 12px;
+	border-radius: 5px;
+}
+input[type="submit"]:hover{
+    background:white;
+	color: rgb(253, 139, 43);
 }

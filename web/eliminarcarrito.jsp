@@ -4,25 +4,34 @@
     Author     : tutus
 --%>
 
+<%@page import="java.util.Arrays"%>
 <%@page import="user.UserActions"%>
 <%@page import="java.sql.PreparedStatement"%>
 <%@page import="java.sql.Connection"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%
-    int idprod = Integer.parseInt(request.getParameter("idprod"));
+    int no = Integer.parseInt(request.getParameter("i"));
+    String idpr = "idprod"+no; 
+    int id=Integer.parseInt(request.getParameter(idpr));
     String prodlist = (String) session.getAttribute("prodlist");
-    String[] prods = prodlist.split(",");
-    if (prodlist != null) {
-        session.removeAttribute("prodlist");
-        for (int i = 0; i < prods.length; i++) {
-            
+    String prods[] = prodlist.split(",");
+    session.removeAttribute("prodlist");
+    for (int i = 0; i < prods.length; i++) {
+        if (Integer.parseInt(prods[i]) == id) {
+            prods[i]="0";
         }
-        session.setAttribute("prodlist",prodlist);
-        response.sendRedirect("main.jsp");
-    }else{
-        prodlist = "0" + idprod; 
-        session.setAttribute("prodlist", prodlist);
-        response.sendRedirect("main.jsp");
     }
+    prodlist = "";
+    for (int i = 0; i < prods.length; i++) {
+        if(i < prods.length-1){
+            prodlist += Integer.parseInt(prods[i]) + ",";
+        }else if(i == prods.length-1){
+            prodlist += Integer.parseInt(prods[i]);
+        }
+        System.out.println("este es prodlist original y con for"+prodlist);
+    }
+    
+    session.setAttribute("prodlist",prodlist);
+    response.sendRedirect("carrito.jsp");
 %>
 
