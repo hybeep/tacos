@@ -53,6 +53,7 @@ body{
 	color: rgb(265, 139, 55);
 }
 .cuerpo{
+    height: 80%;
     width: 100%;
     padding: 10%;
     display: grid;
@@ -79,7 +80,7 @@ body{
     grid-template-columns: repeat(3,1fr);
     grid-template-rows: repeat(1 auto);
 }
-@media screen and(max-width: 50%){
+@media screen and(max-width: 20%){
     .productos > div{
         grid-column: 1 / -1;
     }
@@ -178,12 +179,10 @@ form{
     color: rgb(253, 139, 43);
 }
 .log_in .logo{
-	width: 30%;
-	height: 30%;
-	border-radius: 50%;
+    border-radius: 10px;
     top: 0px;
     margin-top: -60%;
-	margin-left: calc(50% - 15%);
+    margin-left: calc(50%-100%);
 }
 table{
     border: 2px;

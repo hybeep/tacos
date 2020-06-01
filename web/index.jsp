@@ -33,7 +33,8 @@
                 <p>La historia del taco</p>
             </label>
             <label for="" class="log_in">
-                <img class="logo" src="IMG/logo_e.jpg">
+
+                <img class="logo" src="multimedia/logo.png" heigth="50" width="200">
                 <h1>Iniciar Sesion</h1>
                 <form action="" method="post">
                     
@@ -89,8 +90,9 @@
                 </form>
 
                     
-                
+
             </label>
+            
         </section>
         <footer class="pie_de_pagina" id="pie_de_pagina">
             <h4>Contactanos en</h4>

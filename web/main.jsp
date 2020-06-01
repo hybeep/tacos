@@ -62,37 +62,17 @@
                 </aside>
 
                 <div align="center" width="200%" >
-                    <h1>Taco Master</h1>
-            <br>
-            <h2>
-                Consulta
-            </h2>
-            <br>
-            <div align="left" width="200%" >
-            </div>
-            <br>
-            <table border="1" borderColor="black">
-            <tbody>
-               
-                <th  width="290" align="center" >Nombre del Producto
-                    
-                </th>
-                <th  width="290" align="center" >Precio
-                    
-                </th>
-                <th  width="290" align="center" >Stock
-                    
-                </th>
-                <th  width="230" align="center" >img
-                    
-                </th>
-                <th  width="290" align="center" >Descripción
-                    
-                </th>
-                <th  width="290" align="center" >Agregar
-
-                </th>
-                
+                    <section class ="productos" id = "productos">
+                        <center>
+                            <br>
+                            <h1>
+                                Taco Master
+                            </h1>
+                            <h2>
+                                Consulta
+                            </h2>
+                            <br>
+                        </center>
                 <% 
                     Connection con = UserActions.getConnection();
                     Statement st = con.createStatement();
@@ -111,31 +91,57 @@
  
                  %>
                  
-                 <tr>
-                     <td valign="top" width="80" height="19" ><%=rs.getString(2) %> 
-                     </td>
-                     
-                     <td valign="top" width="80" height="19" ><%=rs2.getFloat(2) %> 
-                     </td>
-                     
-                     <td valign="top" width="80" height="19" ><%=rs2.getInt(3) %> 
-                     </td>
-                     
-                     <td valign="top" width="80" height="19" ><%=rs2.getBlob(4) %> 
-                     </td>
-                     
-                     <td valign="top" width="80" height="19" ><%=rs2.getString(7) %> 
-                     </td>
-                     
-                     <td valign="top" width="80" height="19" >
-                        <form id="<%=form%>" action="agregarcarrito.jsp">
-                            <input type="hidden" name="<%=id%>" id="<%=id%>" value="<%=rs.getInt(1)%>">
-                            <input type="hidden" name="i" id="<%=i%>" value="<%=i%>">
-                            <input type="button" value="Agregar al carrito" id="<%=add%>" onclick="unableButton(<%=i%>) " >
-                        </form>
-                     </td>
-
-                 </tr>
+                    <div>
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <img src=""><%=rs2.getBlob(4) %> 
+                                </tr>
+                                <tr>
+                                    <th>
+                                        Nombre del Producto
+                                    </th>
+                                    <td>
+                                        <%=rs.getString(2) %>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        Percio
+                                    </th>
+                                    <td>
+                                        <%=rs2.getFloat(2) %> 
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        Stock
+                                    </th>
+                                    <td>
+                                        <%=rs2.getInt(3) %> 
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th>
+                                        Descripcion
+                                    </th>
+                                    <td>
+                                        <%=rs2.getString(7) %> 
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <center>
+                                            <form action="agregarcarrito.jsp">
+                                                <input type="hidden" name="idprod" value="<%=rs.getInt(1)%>">
+                                                <input type="submit" value="Agregar al carrito">
+                                            </form>
+                                        </center>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                  
                  <% 
                      i++;
@@ -150,13 +156,8 @@
                     }
                 
                 %>
-                
-                </tbody>
-                   
-            </table>
-            
-            
-        </div>
+                </section>
+            </div>
         </section>
         <footer class="pie_de_pagina" id="pie_de_pagina">
             <h4>Contactanos en</h4>
