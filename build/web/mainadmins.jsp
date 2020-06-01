@@ -3,7 +3,6 @@
     Created on : 29/05/2020, 05:27:57 PM
     Author     : tutus
 --%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@page import="user.UserActions"%>
 <%@page language="java" import="java.sql.*"%>
@@ -26,10 +25,10 @@
                     <ul>
                         <li><a href="mainadmins.jsp">Productos</a></li>
                         <li><a href="users.jsp">Usuarios</a></li>
-                        <li><a href="insertarproducto.jsp">Agregar Productos</a></li>
+
                         <li>
                             <form action="LogoutUser">
-                            <input type="submit" value="Cerrar sesion">
+                                <input type="submit" value="Cerrar sesion">
                             </form>
                         </li>
                     </ul>
@@ -40,6 +39,8 @@
                     <div>
                         <form action="Controler" method="POST">
                             <input type="submit" name="action" value="Ver Productos">
+                            <!---<li><a href="insertarproducto.jsp">Agregar Productos</a></li>--->
+                            <input type="submit" name="action" value="Agregar Productos">
                         </form>
                         <hr>
                         <table>

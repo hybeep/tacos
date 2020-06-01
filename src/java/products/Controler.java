@@ -1,17 +1,21 @@
 package products;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 /**
  *
  * @author PorfirioDamián
  */
+@MultipartConfig
 public class Controler extends HttpServlet {
     
     ProductoDAO dao = new ProductoDAO();
@@ -38,14 +42,46 @@ public class Controler extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        String action = (String) request.getAttribute("action");
-        switch (action) {
+        
+        
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        
+        String accion = (String) request.getParameter("action");
+        switch (accion) {
         
             case "Ver Productos":
                 
                 List<Producto>lista = dao.listar();
                 request.setAttribute("lista", lista);
                 request.getRequestDispatcher("mainadmins.jsp").forward(request, response);
+                
+            break;
+            
+            case "Agregar Productos":
+                
+                request.getRequestDispatcher("insertarproducto.jsp").forward(request, response);
+                
+            break;
+            
+            case "Guardar":
+                
+                String nom = request.getParameter("txtNombre");
+                Float pre = Float.parseFloat(request.getParameter("dfPrecio"));
+                int sto = Integer.parseInt(request.getParameter("dfStock"));
+                String desc = request.getParameter("txtDesc");
+                Part part= request.getPart("fileImg");
+                InputStream inputstream = part.getInputStream(); 
+                p.setNom_prod(nom);
+                p.setPrecio(pre);
+                p.setStock(sto);
+                p.setDescripcion_prod(desc);
+                p.setImg(inputstream);
+                dao.agregar(p);
+                request.getRequestDispatcher("Controler?accion=Ver Productos").forward(request, response);
                 
             break;
             
@@ -56,15 +92,6 @@ public class Controler extends HttpServlet {
             break;
         
         }
-        
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-        
-        
         
     }
 

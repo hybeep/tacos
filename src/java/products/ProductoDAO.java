@@ -3,11 +3,13 @@ package products;
 import Modelo.Conexion;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
@@ -53,7 +55,7 @@ public class ProductoDAO {
         
         }catch(Exception e){
         
-        
+            System.out.println("Error listar"+e);
         
         }
         
@@ -61,7 +63,7 @@ public class ProductoDAO {
     
     }
     
-    public void listarImg(int id, HttpServletResponse response){
+    public void listarImg(int id, HttpServletResponse response) throws IOException{
         
         String sql="select * from dtacos where id="+id;
         InputStream inputstream = null;
@@ -93,12 +95,47 @@ public class ProductoDAO {
             
             }
         
-        }catch(Exception e){
+        }catch(SQLException e){
         
-       
+            System.out.println("Error listarImg"+e);
+            System.out.println(e.getMessage());
+            System.out.println(e.getStackTrace());
             
         }
         
+    }
+    
+    public void agregar(Producto p){
+
+        String sql = "insert into mtacos (nom_prod) values (?)";
+        String sql2 = "insert into dtacos (img_taco,precio_taco,stock_taco,descripcion) value(?,?,?,?)";
+
+        try{
+            Connection con = cn.getConexion();
+            
+            ps = con.prepareStatement(sql);
+            ps.setString(1, p.getNom_prod());
+            
+            ps2 = con.prepareStatement(sql2);
+            ps2.setBlob(1, p.getImg());
+            ps2.setFloat(2, p.getPrecio());
+            ps2.setInt(3, p.getStock());
+            ps2.setString(4, p.getDescripcion_prod());
+            
+            ps.executeUpdate();
+            ps2.executeUpdate();
+            ps.close();
+            ps2.close();
+            con.close();
+       
+        }catch(SQLException ed){
+            
+            System.out.println("Error agregar");
+            System.out.println(ed.getMessage());
+            System.out.println(ed.getStackTrace());
+       
+        }
+    
     }
     
 }
