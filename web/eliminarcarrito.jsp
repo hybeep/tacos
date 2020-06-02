@@ -28,7 +28,6 @@
         }else if(i == prods.length-1){
             prodlist += Integer.parseInt(prods[i]);
         }
-        System.out.println("este es prodlist original y con for"+prodlist);
     }
     
     session.setAttribute("prodlist",prodlist);

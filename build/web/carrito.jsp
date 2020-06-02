@@ -76,11 +76,13 @@
                             rs = st.executeQuery(q);
                             rs2 = st2.executeQuery(q2);   
                             while(rs.next() && rs2.next()){
+                                int idprod = rs2.getInt(1);
                                 String form = "form"+i;
                                 String prod = "idprod"+i;
                                 String numero = "numero"+i;
                     %>
                     <tr>
+                     <p name="id" value="<%=idprod%>" style="display: none;"></p>
                      <td valign="top" width="80" height="19" ><%=rs.getString(2) %> 
                      </td>
                      
@@ -90,7 +92,7 @@
                      <td valign="top" width="80" height="19" ><%=rs2.getInt(3) %> 
                      </td>
                      
-                     <td valign="top" width="80" height="19" ><%=rs2.getBlob(4) %> 
+                     <td><img src="ControlerImg?id=<%=idprod%>" width="150" height="100">
                      </td>
                      
                      <td valign="top" width="80" height="19" ><%=rs2.getString(7) %> 

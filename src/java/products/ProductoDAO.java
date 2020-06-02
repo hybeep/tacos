@@ -37,7 +37,7 @@ public class ProductoDAO {
         con = cn.getConexion();
         ps = con.prepareStatement(sql);
         rs = ps.executeQuery();
-        ps2 = con.prepareStatement(sql);
+        ps2 = con.prepareStatement(sql2);
         rs2 = ps2.executeQuery();
         
         while(rs.next() && rs2.next()){
@@ -50,22 +50,22 @@ public class ProductoDAO {
             p.setPrecio(rs.getFloat("precio_taco"));
             p.setStock(rs.getInt("stock_taco"));
             p.setImg(rs.getBinaryStream("img_taco"));
-        
+            lista.add(p);
         }
         
+           
         }catch(Exception e){
         
             System.out.println("Error listar"+e);
         
         }
-        
         return lista;
     
     }
     
     public void listarImg(int id, HttpServletResponse response) throws IOException{
         
-        String sql="select * from dtacos where id="+id;
+        String sql="select * from dtacos where id_taco="+id;
         InputStream inputstream = null;
         OutputStream outputstream = null;
         BufferedInputStream bufferedinputstream = null;
@@ -107,8 +107,8 @@ public class ProductoDAO {
     
     public void agregar(Producto p){
 
-        String sql = "insert into mtacos (nom_prod) values (?)";
-        String sql2 = "insert into dtacos (img_taco,precio_taco,stock_taco,descripcion) value(?,?,?,?)";
+        String sql = "insert into mtacos (nom_prod) value (?)";
+        String sql2 = "insert into dtacos (img_taco,precio_taco,stock_taco,descripcion) values (?,?,?,?)";
 
         try{
             Connection con = cn.getConexion();
@@ -124,8 +124,6 @@ public class ProductoDAO {
             
             ps.executeUpdate();
             ps2.executeUpdate();
-            ps.close();
-            ps2.close();
             con.close();
        
         }catch(SQLException ed){

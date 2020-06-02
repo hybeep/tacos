@@ -26,6 +26,7 @@
         session.setAttribute("cantidad",cantidad);
         response.sendRedirect("main.jsp");
     }else{
+        prodlist = "0" + idprod; 
         prodlist = Integer.toString(idprod); 
         session.removeAttribute("numlist");
         session.removeAttribute("cantidad");

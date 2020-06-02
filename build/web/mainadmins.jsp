@@ -16,6 +16,8 @@
         <title>Document</title>
     </head>
     <body>
+        <% if(session.getAttribute("nivel") != null){
+        %>
         <section class="fondo" id="fondo">
             <section class="cabeza">
                 <header class="cabecera" id="cabecera">
@@ -56,18 +58,19 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <c:forEach var="dato" items="${lista}">
-                                    <tr>
-                                        <td>${dato.getId_dprod()}</td>
-                                        <td><img src="ControlerImg?id=${dato.getId_dprod()}" width="150" height="100"></td>
-                                        <td>${dato.getNom_prod()}</td>
-                                        <td>${dato.getDescripcion_prod()}</td>
-                                        <td>${dato.getPrecio()}</td>
-                                        <td>${dato.getStock()}</td>
+                                <c:forEach items="${lista}" var="i" begin="0" end="${lista.size()}">
+                                    <tr><c:out value="${lista.get(i).getPrecio()}"/>
+                                        <p name="id" value="${lista.get(i).getId_dprod()}" style="display: none;"></p>
+                                        <td>${lista.get(i).getId_dprod()}</td>
+                                        <td><img src="ControlerImg?id=${lista.get(i).getId_dprod()}" width="150" height="100"></td>
+                                        <td>${lista.get(i).getNom_prod()}</td>
+                                        <td>${lista.get(i).getDescripcion_prod()}</td>
+                                        <td>${lista.get(i).getPrecio()}</td>
+                                        <td>${lista.get(i).getStock()}</td>
                                         <td>
                                             <form action="Controler" method="POST">
-                                                <input type="hidden" name="idhide" value="${dato.getId_dprod()}">
-                                                <input type="hidden" name="idmhide" value="${dato.getId_mprod()}">
+                                                <input type="hidden" name="idhide" value="${lista.get(i).getId_dprod()}">
+                                                <input type="hidden" name="idmhide" value="${lista.get(i).getId_mprod()}">
                                                 <input type="submit" value="Eliminar">
                                             </form>
                                         </td>
@@ -87,5 +90,10 @@
                 </footer>
             </section>
         </section>
+         <%
+            }else{
+                response.sendRedirect("error.jsp");
+            }
+        %>
     </body>
 </html>

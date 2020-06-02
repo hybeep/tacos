@@ -78,6 +78,7 @@
                     Statement st = con.createStatement();
                     Statement st2 = con.createStatement();
                     ResultSet rs,rs2;
+                    String prodlist = (String) session.getAttribute("prodlist");
                     try{
                         String q = "Select * from mtacos";
                         String q2 = "Select * from dtacos";
@@ -85,17 +86,17 @@
                         rs2 = st2.executeQuery(q2);
                         int i =1;
                         while(rs.next() && rs2.next()){
-                            String form = "form"+i;
+                            int idprod = rs2.getInt(1);
                             String id = "id"+i;
                             String add = "add"+i;
- 
                  %>
                  
                     <div>
                         <table>
                             <tbody>
                                 <tr>
-                                    <img src=""><%=rs2.getBlob(4) %> 
+                                    <p name="id" value="<%=idprod%>" style="display:none"></p>
+                                    <img src="ControlerImg?id=<%=idprod%>" width="150" height="100">
                                 </tr>
                                 <tr>
                                     <th>
@@ -107,7 +108,7 @@
                                 </tr>
                                 <tr>
                                     <th>
-                                        Percio
+                                        Precio
                                     </th>
                                     <td>
                                         <%=rs2.getFloat(2) %> 
@@ -133,8 +134,9 @@
                                     <td>
                                         <center>
                                             <form action="agregarcarrito.jsp">
-                                                <input type="hidden" name="idprod" value="<%=rs.getInt(1)%>">
-                                                <input type="submit" value="Agregar al carrito">
+                                                <input type="hidden" name="<%=id%>" id="<%=id%>" value="<%=rs.getInt(1)%>">
+                                                <input type="hidden" name="i" id="<%=i%>" value="<%=i%>">
+                                                <input type="submit" value="Agregar al carrito" id="<%=add%>" >
                                             </form>
                                         </center>
                                     </td>

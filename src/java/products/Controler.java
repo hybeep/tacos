@@ -3,6 +3,7 @@ package products;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.util.Iterator;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -18,8 +19,7 @@ import javax.servlet.http.Part;
 @MultipartConfig
 public class Controler extends HttpServlet {
     
-    ProductoDAO dao = new ProductoDAO();
-    Producto p = new Producto();
+    
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -50,6 +50,9 @@ public class Controler extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+        ProductoDAO dao = new ProductoDAO();
+        Producto p = new Producto();
+        
         String accion = (String) request.getParameter("action");
         switch (accion) {
         
@@ -70,7 +73,7 @@ public class Controler extends HttpServlet {
             case "Guardar":
                 
                 String nom = request.getParameter("txtNombre");
-                Float pre = Float.parseFloat(request.getParameter("dfPrecio"));
+                float pre = Float.parseFloat(request.getParameter("dfPrecio"));
                 int sto = Integer.parseInt(request.getParameter("dfStock"));
                 String desc = request.getParameter("txtDesc");
                 Part part= request.getPart("fileImg");
@@ -81,7 +84,7 @@ public class Controler extends HttpServlet {
                 p.setDescripcion_prod(desc);
                 p.setImg(inputstream);
                 dao.agregar(p);
-                request.getRequestDispatcher("Controler?accion=Ver Productos").forward(request, response);
+                request.getRequestDispatcher("mainadmins.jsp").forward(request, response);
                 
             break;
             

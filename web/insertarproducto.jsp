@@ -18,6 +18,8 @@
         <title>Document</title>
     </head>
     <body>
+        <% if(session.getAttribute("nivel") != null){
+        %>
         <section class="fondo" id="fondo">
             <header class="cabecera" id="cabecera">
                 <h1>TACO MASTER®</h1>
@@ -56,5 +58,10 @@
                 </div>
             </section>
         </section>
+        <%
+            }else{
+                response.sendRedirect("error.jsp");
+            }
+        %>
     </body>
 </html>
