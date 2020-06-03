@@ -15,6 +15,16 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <link rel="stylesheet" href="css/master.css">
+        <script>
+        function accion() {
+            var id = document.getElementById('long').value;
+            console.log(id);
+            if(id === 3){
+                form.setAttribute('action', 'compraprocess.jsp');
+                form.submit();
+            }
+        }
+        </script>
     </head>
     <body>
         <% if(session.getAttribute("email") != null){
@@ -35,6 +45,8 @@
                     </ul>
                 </nav>
                 <section class="cuerpo" id="cuerpo">
+                <form action="compraprocess.jsp" id="form">
+
                     <table border="1" borderColor="black">
                     
                 <th width="290" align="center" >Nombre del Producto
@@ -58,7 +70,7 @@
                 <th width="290" align="center" >Eliminar
 
                 </th>
-                    <%
+                                    <%
                     String prodlist = (String)session.getAttribute("prodlist");
                     int numlist = (Integer)session.getAttribute("numlist");
                     if(prodlist != null){
@@ -68,7 +80,8 @@
                     Connection con = UserActions.getConnection();
                     Statement st = con.createStatement();
                     Statement st2 = con.createStatement();
-                    ResultSet rs,rs2;
+                    Statement st3 = con.createStatement();
+                    ResultSet rs,rs2,rs3;
                     try{
                         for (int i = 0; i < prods.length ; i++) {
                             String q = "Select * from mtacos where id_mtacos="+prods[i];
@@ -80,7 +93,9 @@
                                 String form = "form"+i;
                                 String prod = "idprod"+i;
                                 String numero = "numero"+i;
+                                String formul = "form action='eliminarcarrito.jsp' name='" + form + "'";
                     %>
+                    <p id="long" value="<%=prods.length%>" style="display: none;"></p>
                     <tr>
                      <p name="id" value="<%=idprod%>" style="display: none;"></p>
                      <td valign="top" width="80" height="19" ><%=rs.getString(2) %> 
@@ -103,7 +118,7 @@
                      </td>
                      
                      <td valign="top" width="80" height="19" >
-                        <form action="eliminarcarrito.jsp" name="<%=form%>">
+                        <<%= formul%>>
                             <input type="hidden" name="<%=prod%>" value="<%=rs.getInt(1)%>">
                             <input type="hidden" name="i" value="<%=i%>">
                             <input type="submit" value="Eliminar del carrito">
@@ -115,6 +130,37 @@
                  <%
                      }
                     }
+                 %>
+                    </table>
+                    
+                    <h2>Complementos</h2>
+                    <%
+                        String sql3 = "select * from ccomplementos";
+                        rs3 = st3.executeQuery(sql3);
+                        
+                        int z = 0;
+                        while(rs3.next()){
+                           
+                            int id_cc = rs3.getInt(1);
+                            String nom_cc = rs3.getString(2);
+                            String  name_cc_form ="complementos_form"+z;
+                            String hiden = nom_cc +"_"+ id_cc;
+                            String name_label = "nom_cc"+z;
+                    
+                    %>
+                    <input type="hidden" name="<%=hiden%>" value="<%=id_cc%>">
+                    <input type="hidden" name="z" value="6">
+                    <%=nom_cc%><input type="hidden"  name="<%=name_label%>" value="<%=nom_cc%>" >
+                    <input type="checkbox" name = "<%= name_cc_form%>" id="<%= name_cc_form%>" ><br>
+                        <% z++;
+                                }
+                    %>
+                    
+                        <input type="submit" value="Pagar">
+                    </form>
+                    
+                 </section>
+                 <%
                         st.close();
                         con.close();
                     }catch(Exception e){
@@ -124,11 +170,7 @@
                     }
 }
                  %>
-                    </table>
-                    <form action="">
-                        <input type="submit" value="Pagar" onclick="get()">
-                    </form>
-                 </section>
+                    
                 <footer class="pie_de_pagina" id="pie_de_pagina">
                     <h4>Contactanos en</h4>
                     <h5>facebook</h5> 

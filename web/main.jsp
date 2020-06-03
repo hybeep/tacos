@@ -18,16 +18,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Document</title>
     </head>
-    <script>
-        function unableButton(no) {
-            var form = "form"+no;
-            var add = "add"+no;
-            document.getElementById(add).disabled = true; 
-            if(document.getElementById(add).disabled === true){
-                document.getElementById(form).submit();
-            }
-        }
-    </script>
     <body>
         <% if(session.getAttribute("email") != null){ 
         %>
@@ -79,16 +69,32 @@
                     Statement st2 = con.createStatement();
                     ResultSet rs,rs2;
                     String prodlist = (String) session.getAttribute("prodlist");
+                    String prods[] = null;
+                    if(prodlist != null){
+                        prods = prodlist.split(",") ;
+                    }
+                    System.out.println("prods"+prods);
                     try{
                         String q = "Select * from mtacos";
                         String q2 = "Select * from dtacos";
                         rs = st.executeQuery(q);
                         rs2 = st2.executeQuery(q2);
                         int i =1;
+                        
                         while(rs.next() && rs2.next()){
-                            int idprod = rs2.getInt(1);
-                            String id = "id"+i;
-                            String add = "add"+i;
+                            int h = rs.getInt(1);
+                            boolean existe = false;
+                            if(prods!=null){
+                                for (int k = 0; k < prods.length; k++) {
+                                    if (Integer.parseInt(prods[k]) == h) {
+                                        existe = true;
+                                    }
+                                }
+                            }
+                            if(existe == false){
+                                int idprod = rs2.getInt(1);
+                                String id = "id"+i;
+                                String add = "add"+i;
                  %>
                  
                     <div>
@@ -145,9 +151,10 @@
                         </table>
                     </div>
                  
-                 <% 
-                     i++;
+                 <%     
+                        i++;
                         }
+                    }   
                         rs.close();
                         st.close();
                         con.close();

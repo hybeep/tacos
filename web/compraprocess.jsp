@@ -23,6 +23,7 @@
     String prodlist = (String) session.getAttribute("prodlist");
     int id_mu = (Integer)session.getAttribute("id");
     
+    
     LocalDateTime locaDate = LocalDateTime.now();
     int hours  = locaDate.getHour();
     int minutes = locaDate.getMinute();
@@ -34,6 +35,21 @@
     
     String[] prods = prodlist.split(",");
     String[] lista=new String[prods.length];
+    String[] cantidad=new String[prods.length];
+    for (int i = 0; i < prods.length; i++) {
+        cantidad[i] = request.getParameter("numero"+i);
+    }
+    
+    int z = Integer.parseInt(request.getParameter("z"));
+    String complementos[] = new String[z];
+    for (int i = 0; i < z; i++) {
+        if (request.getParameter("complementos_form"+i) != null){
+            complementos[i] = request.getParameter("nom_cc"+i);
+        }else{
+            complementos[i] = "0";
+        }
+    }
+    
     if (prodlist != null) {
         Connection con = UserActions.getConnection();
         ResultSet rs;
@@ -45,11 +61,22 @@
             while (rs.next()){
                 lista [i] = rs.getString(2);
             %>
-            <p>&nbsp &nbsp &nbsp &nbsp *<%=lista[i]%> </p>
+            <p>&nbsp &nbsp &nbsp &nbsp *<%=lista[i]%> x <%=cantidad[i]%></p>
             
            <% }
             i++;
         }%>
+            Complementos:
+        <%
+           for (int l = 0; l < complementos.length; l++) {
+               if (complementos[l] != "0") {
+            %>
+                <p>&nbsp &nbsp &nbsp &nbsp *<%=complementos[l]%> </p>
+            <%
+                }
+            }
+           %>
+        
         <h2>Total a pagar:</h2>
         <%float[] precio = new float[prods.length];
         i=0;
@@ -59,15 +86,15 @@
             rs = ps.executeQuery();  
             while (rs.next()){
                 precio [i] = rs.getFloat(2);
-                System.out.println("array perecio"+precio);
+                float preciotaco = precio[i] * Float.parseFloat(cantidad[i]);
             %>
-            <p>&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp *$<%=precio[i]%> </p>
+            <p>&nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp *$<%= preciotaco %> </p>
            <% }
             i++;
         }
-        int suma=0;
+        float suma=0;
         for (int j = 0; j < precio.length; j++) {
-            suma += precio[j];
+            suma += precio[j] * Integer.parseInt(cantidad[j]);
         }
         double iva = suma*.16;
         double totalp = suma+iva;
