@@ -19,6 +19,9 @@
         ps.executeUpdate();
         ps.close();
         con.close();
+        if (session.getAttribute("nivel") != null) {
+           response.sendRedirect("users.jsp");
+        }
     }catch(Exception e){
         System.out.println("Error, Fallo de conexion con la BD");
         System.out.println(e.getMessage());

@@ -3,7 +3,6 @@ package products;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
-import java.util.Iterator;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -19,7 +18,8 @@ import javax.servlet.http.Part;
 @MultipartConfig
 public class Controler extends HttpServlet {
     
-    
+      ProductoDAO dao = new ProductoDAO();
+        Producto p = new Producto();
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -50,10 +50,10 @@ public class Controler extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        ProductoDAO dao = new ProductoDAO();
-        Producto p = new Producto();
+      
         
         String accion = (String) request.getParameter("action");
+        System.out.println("accion"+accion);
         switch (accion) {
         
             case "Ver Productos":

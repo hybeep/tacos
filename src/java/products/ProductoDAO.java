@@ -54,7 +54,7 @@ public class ProductoDAO {
         }
         
            
-        }catch(Exception e){
+        }catch(SQLException e){
         
             System.out.println("Error listar"+e);
         
