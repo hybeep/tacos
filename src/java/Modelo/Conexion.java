@@ -23,13 +23,16 @@ public class Conexion {
         Connection con = null;
         
         try{
+            
             Class.forName("com.mysql.jdbc.Driver"); 
             con = DriverManager.getConnection(url,userName,password);
-            System.out.println("Se conecto a la BD");
+            
         }catch(Exception e){
-            System.out.println("No se conecto a la BD");
+            
+            System.out.println("Error en Conexion, No se conecto a la BD");
             System.out.println(e.getMessage());
             System.out.println(e.getStackTrace());
+            
         }
         return con;
         

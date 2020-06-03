@@ -16,7 +16,7 @@
         <script></script>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
+        <title>Taco Master</title>
     </head>
     <body>
         <% if(session.getAttribute("email") != null){ 
@@ -42,6 +42,7 @@
                 </section>
             
             <section class="cuerpo" id="cuerpo">
+                
                 <aside class="lateral_izquierdo" id="lateral_izquierdo">
                     <h3>La historia de los tacos</h3>
                     <h4>La historia de los tacos
@@ -52,17 +53,9 @@
                 </aside>
 
                 <div align="center" width="200%" >
+                    <h1>Productos</h1>
                     <section class ="productos" id = "productos">
-                        <center>
-                            <br>
-                            <h1>
-                                Taco Master
-                            </h1>
-                            <h2>
-                                Consulta
-                            </h2>
-                            <br>
-                        </center>
+
                 <% 
                     Connection con = UserActions.getConnection();
                     Statement st = con.createStatement();
@@ -73,7 +66,7 @@
                     if(prodlist != null){
                         prods = prodlist.split(",") ;
                     }
-                    System.out.println("prods"+prods);
+                    //----------System.out.println("prods"+prods);
                     try{
                         String q = "Select * from mtacos";
                         String q2 = "Select * from dtacos";
@@ -101,8 +94,8 @@
                         <table>
                             <tbody>
                                 <tr>
-                                    <p name="id" value="<%=idprod%>" style="display:none"></p>
-                                    <img src="ControlerImg?id=<%=idprod%>" width="150" height="100">
+                                    <p ></p>
+                                    <img name="id" value="<%=idprod%>" style="display:none" src="ControlerImg?id=<%=idprod%>" width="150" height="100">
                                 </tr>
                                 <tr>
                                     <th>

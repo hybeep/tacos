@@ -49,11 +49,9 @@ public class Controler extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-      
-        
+       
         String accion = (String) request.getParameter("action");
-        System.out.println("accion"+accion);
+        
         switch (accion) {
         
             case "Ver Productos":
@@ -84,6 +82,16 @@ public class Controler extends HttpServlet {
                 p.setDescripcion_prod(desc);
                 p.setImg(inputstream);
                 dao.agregar(p);
+                request.getRequestDispatcher("mainadmins.jsp").forward(request, response);
+                
+            break;
+            
+            case "Eliminar":
+                
+                int id_dprod = Integer.parseInt(request.getParameter("iddhide"));
+                int id_mprod = Integer.parseInt(request.getParameter("idmhide"));
+                //System.out.println("id's: "+id_dprod+", "+id_mprod);
+                dao.eliminar(id_dprod, id_mprod);
                 request.getRequestDispatcher("mainadmins.jsp").forward(request, response);
                 
             break;

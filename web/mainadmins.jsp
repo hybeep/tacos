@@ -13,7 +13,7 @@
         <script></script>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Document</title>
+        <title>Administración</title>
     </head>
     <body>
         <% if(session.getAttribute("nivel") != null){
@@ -58,24 +58,95 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <c:forEach items="${lista}" var="i" begin="0" end="${lista.size()}">
-                                    <tr><c:out value="${lista.get(i).getPrecio()}"/>
-                                        <p name="id" value="${lista.get(i).getId_dprod()}" style="display: none;"></p>
-                                        <td>${lista.get(i).getId_dprod()}</td>
-                                        <td><img src="ControlerImg?id=${lista.get(i).getId_dprod()}" width="150" height="100"></td>
-                                        <td>${lista.get(i).getNom_prod()}</td>
-                                        <td>${lista.get(i).getDescripcion_prod()}</td>
-                                        <td>${lista.get(i).getPrecio()}</td>
-                                        <td>${lista.get(i).getStock()}</td>
-                                        <td>
-                                            <form action="Controler" method="POST">
-                                                <input type="hidden" name="idhide" value="${lista.get(i).getId_dprod()}">
-                                                <input type="hidden" name="idmhide" value="${lista.get(i).getId_mprod()}">
-                                                <input type="submit" value="Eliminar">
-                                            </form>
-                                        </td>
-                                    </tr>
-                                </c:forEach>
+<%
+        Connection con = UserActions.getConnection();
+        Statement st = con.createStatement();
+        Statement st2 = con.createStatement();
+        ResultSet rs,rs2;
+        String prodlist = (String) session.getAttribute("prodlist");
+        String prods[] = null;
+        
+        if(prodlist != null){
+            
+            prods = prodlist.split(",") ;
+            
+        }
+        
+        try{
+            
+            String q = "Select * from mtacos";
+            String q2 = "Select * from dtacos";
+            rs = st.executeQuery(q);
+            rs2 = st2.executeQuery(q2);
+            int i =1;
+
+            while(rs.next() && rs2.next()){
+                
+                int h = rs.getInt(1);
+                boolean existe = false;
+                
+                if(prods!=null){
+                    
+                    for (int k = 0; k < prods.length; k++) {
+                        
+                        if (Integer.parseInt(prods[k]) == h) {
+                            
+                            existe = true;
+                            
+                        }
+                        
+                    }
+                    
+                }
+                
+                if(existe == false){
+                    
+                    int idprod = rs2.getInt(1);
+                    int idmprod = rs.getInt(1);
+                    String id = "id"+i;
+                    String add = "add"+i;
+                    //System.out.println("idss: "+idprod+", "+idmprod);
+
+
+%>                                
+                                <tr>
+                                    <td><%=rs.getString(1) %></td>
+                                    <td>
+                                        <p name="id" value="<%=idprod%>" style="display:none"></p>
+                                        <img src="ControlerImg?id=<%=idprod%>" width="150" height="100">
+                                    </td>
+                                    <td><%=rs.getString(2) %></td>
+                                    <td><%=rs2.getString(7) %></td>
+                                    <td><%=rs2.getFloat(2) %></td>
+                                    <td><%=rs2.getInt(3) %></td>
+                                    <td>
+                                        <form action="Controler" method="POST">
+                                                <input type="hidden" name="iddhide" value="<%=idprod%>">
+                                                <input type="hidden" name="idmhide" value="<%=idmprod%>">
+                                                <input type="submit" name="action" value="Eliminar">
+                                        </form>
+                                    </td>
+                                </tr>
+<%
+                i++;
+                
+                }
+
+        }
+
+            rs.close();
+            st.close();
+            con.close();
+
+        }catch(Exception e){
+
+            System.out.println("Error, Fallo de conexion con la BD");
+            System.out.println(e.getMessage());
+            System.out.println(e.getStackTrace());
+
+        }
+
+%>           
                             </tbody>
                         </table>
                     </div>

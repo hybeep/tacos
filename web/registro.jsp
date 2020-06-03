@@ -4,7 +4,7 @@
     <head>
         <link rel="stylesheet" href="css/master.css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Home</title>
+        <title>Registro</title>
         <link rel="stylesheet" type="text/css" href="css/style.css">
     </head>
     <body id='body'>
@@ -14,7 +14,7 @@
             </header>
                 <nav class="navegacion" id="navegacion">
                     <ul>
-                        <li><a href="">Logo</a></li>
+                        <li><a href="index.jsp"><img src="multimedia/logo.png" heigth="40" width="160"></a></li>
                         <li><a href="registro.jsp">Registrarse</a></li>
                     </ul>
                 </nav>

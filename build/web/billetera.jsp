@@ -16,7 +16,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Tacoins</title>
         <link rel="stylesheet" href="css/master.css">
     </head>
     <body>
@@ -32,9 +32,11 @@
                         <li><a href="billetera.jsp">TACOin</a></li>
                         <li><a href="carrito.jsp">Mi Carrito</a></li>
                         <li><a href="profile.jsp">Mi perfil</a></li>
-                        <form action="LogoutUser">
-                            <input type="submit" value="Cerrar sesion">
-                        </form>
+                        <li>
+                            <form action="LogoutUser">
+                                <input type="submit" value="Cerrar sesion">
+                            </form>
+                        </li>
                     </ul>
                 </nav>
                 <section class="cuerpo" id="cuerpo">

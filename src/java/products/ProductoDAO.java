@@ -25,6 +25,7 @@ public class ProductoDAO {
     Connection con;
     PreparedStatement ps,ps2;
     ResultSet rs,rs2;
+    Producto p = new Producto();
     
     public List listar(){
         
@@ -42,7 +43,7 @@ public class ProductoDAO {
         
         while(rs.next() && rs2.next()){
         
-            Producto p = new Producto();
+
             p.setId_dprod(rs.getInt(1));
             p.setId_mprod(rs2.getInt(1));
             p.setNom_prod(rs2.getString(2));
@@ -132,6 +133,35 @@ public class ProductoDAO {
             System.out.println(ed.getMessage());
             System.out.println(ed.getStackTrace());
        
+        }
+    
+    }
+    
+    public void eliminar(int id_dprod, int id_mprod){
+    
+        String sql = "delete from mtacos where id_mtacos = ?";
+        String sql2 = "delete from dtacos where id_taco = ?";
+        
+        try{
+        
+            Connection con = cn.getConexion();
+            
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, id_mprod);
+            
+            ps2 = con.prepareStatement(sql2);
+            ps2.setInt(1, id_dprod);
+            
+            ps.executeUpdate();
+            ps2.executeUpdate();
+            con.close();
+        
+        }catch(SQLException ed){
+        
+            System.out.println("Error agregar");
+            System.out.println(ed.getMessage());
+            System.out.println(ed.getStackTrace());
+        
         }
     
     }
