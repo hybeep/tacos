@@ -11,7 +11,21 @@
 <html lang="en">
 <head>
     <link rel="stylesheet" href="css/master.css">
-    <script src="js/master.js"></script>
+    <script >
+    function log(){
+      var correo = document.getElementsByName("correo")[0].value;
+      var password = document.getElementsByName("password")[0].value;
+      console.log("correo"+correo+password);
+       if (/^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i.test(correo) && password !== null) {
+          document.getElementById("formulariolog").action = "loginprocess.jsp";
+          document.getElementById("formulariolog").submit();
+      }else{
+          alert("Datos invalidos, vuelva a intentar");
+          window.location.replace = "index.jsp";
+      }
+    }
+    </script>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Taco Master Log</title>
@@ -40,47 +54,8 @@
 
                 <img class="logo" src="multimedia/logo.png" heigth="50" width="200">
                 <h1>Iniciar Sesion</h1>
-                <form action="" method="post">
-                    
-                    <%
-                            String email,password;
-                            password = request.getParameter("password");
-                            email = request.getParameter("correo");
-                            System.out.println(email + password);
-
-                            User e = new User();
-                            e.setEmail_mu(email);
-                            e.setPass_mu(password);
-                            
-                            int status=0;
-                            
-                            if (request.getParameter("log")!=null){
-                                 status = UserActions.Loguear(e);
-                            }
-
-                           
-                            
-
-                            if (status > 0 && request.getParameter("log")!=null) {
-                                
-                                int id = UserActions.getIdByEmail(email);
-                                int lvl = UserActions.getNivelByEmail(email);
-                                session.setAttribute("id",id);
-                                System.out.println("datos sesion login"+session.getAttribute("email")+" "+session.getAttribute("id")+" "+session.getAttribute("nivel"));
-                                if (lvl == 1) {
-                                    session.setAttribute("nivel", lvl);
-                                    
-                                    response.sendRedirect("mainadmins.jsp");
-                                }else{
-                                    session.setAttribute("email", email);
-                                    session.setAttribute("numlist",0);
-                                    response.sendRedirect("main.jsp");
-                                }
-                                    
-                            }else if (request.getParameter("log")!=null){
-                                out.println("<h>Contraseña o correo invalidos</h><br>");
-                            }
-                    %>
+                <form action="" method="post" id="formulariolog">
+                  
                     <!---Usuario--->
                     <label class="titulos" for="email">Correo</label>
                     <input type="text" name="correo" placeholder="Ingresa el Correo">
@@ -88,9 +63,10 @@
                     <label class="titulos" for="contra">Contraseña</label>
                     <input type="password" name="password" placeholder="Ingresa la contraseña">
         
-                    <input type="submit" name="log" value="Iniciar" onclick="log())">
+                    <input type="button" onclick="log()">
+                    
                     <a class="link-a" href="#">¿Olvidaste tu contraseña?</a><br>
-                    <a class="link-a" href="#">¿No te has registrado aun?</a>
+                    <a class="link-a" href="registro.jsp">¿No te has registrado aun?</a>
                 </form>
 
                     

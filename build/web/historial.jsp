@@ -61,10 +61,10 @@
                                 </th>
                                 <th width="290" align="center" >Fecha
                                 <%
-                                    String id_mu = (String) session.getAttribute("id");
+                                    Integer id_mu = (Integer) session.getAttribute("id");
                                     Connection con = UserActions.getConnection();
                                     Statement st = con.createStatement();
-                                    ResultSet rs,rs2;
+                                    ResultSet rs;
                                     try{
                                         int i = 0;
                                         String q = "Select * from mcarritotaco where id_mu = "+id_mu;
@@ -86,7 +86,7 @@
                                      <td valign="top" width="80" height="19" ><%=rs.getFloat(4) %>
 
                                      </td>
-                                    <td valign="top" width="80" height="19" ><%=rs.getDate(5) %>
+                                     <td valign="top" width="80" height="19" ><%=rs.getDate(5) %> &nbsp;&nbsp;&nbsp; <%=rs.getTime(5) %>
 
                                  </tr>
 

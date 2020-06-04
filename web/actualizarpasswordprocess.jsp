@@ -58,3 +58,11 @@
             }
             con.close();
         %>
+        <html>
+    <head>
+        <title>error</title>
+    </head>
+    <body>
+        <h1>Password incorrecto, <a href="profile.jsp">regresar</a></h1>
+    </body>
+</html>

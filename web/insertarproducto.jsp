@@ -18,6 +18,21 @@
         <title>Agregar Productos</title>
     </head>
     <body>
+        <script>
+        function nuevoprod(){
+            var name = document.getElementsByName("txtNombre")[0].value;
+            var precio = document.getElementsByName("dfPrecio")[0].value;
+            var stock = document.getElementsByName("dfStock")[0].value;
+            var file = document.getElementsByName("fileImg")[0].value;
+            var desc = document.getElementsByName("txtDesc")[0].value;
+            if (/^[A-Z]+$/i.test(name) && desc!== null && file !== null && /^[0-9]+$/.test(precio) 
+               && /^[0-9]+$/.test(stock)) {
+              document.getElementById("formularioprod").submit();
+            }else{
+                alert("Datos invalidos, vuelva a intentar");
+            }
+        }
+        </script>
         <% if(session.getAttribute("nivel") != null){
         %>
         <section class="fondo" id="fondo">
@@ -42,11 +57,11 @@
                         Agregar Nuevo Producto
                     </h2>
                     <br>
-                    <form action="Controler" method="POST" enctype="multipart/form-data">
+                    <form action="Controler" method="POST" enctype="multipart/form-data" id="formularioprod">
                         <label>Nombre del producto:</label>
                         <input type="text" name="txtNombre" placeholder="Nombre"><br>
                         <label>Precio del producto:</label>
-                        <input type="number" name="dfPrecio" placeholder="Precio"><br>
+                        <input type="number" name="dfPrecio" step=".01" placeholder="Precio"><br>
                         <label>Stock del producto:</label>
                         <input type="number" name="dfStock" placeholder="Stock"><br>
                         <label>Imagen del producto:</label>

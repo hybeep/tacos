@@ -5,9 +5,27 @@
         <link rel="stylesheet" href="css/master.css">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Registro</title>
-        <link rel="stylesheet" type="text/css" href="css/style.css">
+        
     </head>
+    
     <body id='body'>
+        <script type="text/javascript">
+            function register(){
+                var nombre = document.getElementsByName("nombre")[0].value;
+                var paterno = document.getElementsByName("paterno")[0].value;
+                var materno = document.getElementsByName("materno")[0].value;
+                var correo = document.getElementsByName("correo")[0].value;
+                var contrasena = document.getElementsByName("contrasena")[0].value;
+                var cumpleanos = document.getElementsByName("cumpleanos")[0].value;
+                var telefono = document.getElementsByName("telefono")[0].value;
+                var celular = document.getElementsByName("celular")[0].value;
+                 if (/^[A-Z]+$/i.test(nombre) && /^[A-Z]+$/i.test(paterno) && /^[A-Z]+$/i.test(materno) && contrasena!==null && /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i.test(correo) && cumpleanos !== null && /^[0-9]+$/.test(telefono) && /^[0-9]+$/.test(celular)) {
+                    document.getElementById("formularioreg").submit();
+                }else{
+                    alert("Datos invalidos, vuelva a intentar");
+                }
+              }
+        </script>
         <section class="fondo" id="fondo">
             <header class="cabecera" id="cabecera">
                 <h1>TACO MASTER®</h1>
@@ -23,7 +41,7 @@
         <center>
             <div id='log' style='margin:200px'>
                 REGISTRATE <br><br><br>
-                <form action='UserRegister' method="post">
+                <form action='UserRegister' method="post" id="formularioreg">
                     <table>
                         <tr>
                             <td>Nombre:</td>
@@ -59,7 +77,7 @@
                         </tr>
                         <tr>
                             <td></td>
-                            <td><input type='submit' value='Registrarse' id='boton'></td>
+                            <td><input type='button' onclick="register()" value='Registrarse'></td>
                         </tr>
                     </table>
                 </form>

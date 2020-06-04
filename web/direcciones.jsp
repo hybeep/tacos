@@ -18,6 +18,22 @@
         <link rel="stylesheet" href="css/master.css">
     </head>
     <body>
+    <script>
+        function nuevadireccion(){
+            var ciudad = document.getElementsByName("ciudad")[0].value;
+            var colonia = document.getElementsByName("colonia")[0].value;
+            var cp = document.getElementsByName("cp")[0].value;
+            var calle = document.getElementsByName("calle")[0].value;
+            var int = document.getElementsByName("int")[0].value;
+            var ext = document.getElementsByName("ext")[0].value;
+            if (/^[A-Z]+$/i.test(ciudad) && /^[A-Z]+$/i.test(colonia) && /^[A-z0-9]+$/.test(calle) &&
+            /^[A-z0-9]+$/.test(ext) && /^[0-9]+$/.test(int) && /^[0-9]+$/.test(cp) && cp.length === 5) {
+              document.getElementById("formularionewdir").submit();
+            }else{
+                alert("Datos invalidos, vuelva a intentar");
+            }
+        }
+        </script>
         <% if(session.getAttribute("email") != null){ 
         %>
         <section class="fondo" id="fondo">
@@ -47,55 +63,15 @@
                         </ul>
                     </aside>
                     <section class="productos" id="productos">
-                        <form action="" method ="post">
+                        <form action="newdir.jsp" method ="post" id="formularionewdir">
                             <h1>Crear nueva direccion</h1>
-                            <%
-                                Direccion d = new Direccion();
-                                Integer id_mu = (Integer)session.getAttribute("id");
-                                int id_direccion;
-                                
-                                if (request.getParameter("savedir")!=null){
-                                    
-                                String ciudad, colonia, calle;
-                                int cp, exterior, interior;
-                                
-                                ciudad = request.getParameter("ciudad");
-                                colonia = request.getParameter("colonia");
-                                calle = request.getParameter("calle");
-                                cp = Integer.parseInt(request.getParameter("cp"));
-                                interior = Integer.parseInt(request.getParameter("int"));
-                                exterior = Integer.parseInt(request.getParameter("ext"));
-
-                                
-                                System.out.println(ciudad + cp + colonia + calle + interior + exterior + id_mu);
-                                d.setCiudad(ciudad);
-                                d.setColonia(colonia);
-                                d.setCalle(calle);
-                                d.setCp(cp);
-                                d.setNo_ext(exterior);
-                                d.setNo_int(interior);
-                                System.out.println(ciudad + colonia + calle + cp + exterior + interior);
-                                    
-                                int estado = DireccionActions.GuardarDireccion(d, id_mu);
-                                
-                                if(estado > 0){
-                                    response.sendRedirect("direcciones.jsp");
-                                }else{
-                                    System.out.println("Error al registrar");
-                                }    
-                                
-                                }
-                                
-                                
-                                
-                            %>
                             Ciudad:<input type="text" name="ciudad" placeholder="Ingresa tu ciudad"><br>
                             Colonia:<input type="text" name="colonia" placeholder="Ingresa tu colonia"><br>
                             Codigo postal:<input type="text" name="cp" placeholder="Ingresa tu cp"><br>
                             Calle:<input type="text" name="calle" placeholder="Ingresa tu calle"><br>
                             #Interior:<input type="text" name="int" placeholder="Ingresa tu numero interior"><br>
                             #Exterior:<input type="text" name="ext" placeholder="Ingresa tu numero exterior"><br>
-                            <input type="submit" value="Guardar" name = "savedir">
+                            <input type="button" value="Guardar" onclick="nuevadireccion()" name = "savedir">
                         </form>
                         
                         <div align="center" style="padding-left: 10%" width="200%" >
@@ -134,6 +110,8 @@
                                 </th>
 
                                 <% 
+                                    Integer id_mu = (Integer)session.getAttribute("id");
+                                    int id_direccion = 0;
                                     Connection con = UserActions.getConnection();
                                     Statement st = con.createStatement();
                                     ResultSet rs,rs2;

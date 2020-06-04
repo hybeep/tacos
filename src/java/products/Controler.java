@@ -90,7 +90,6 @@ public class Controler extends HttpServlet {
                 
                 int id_dprod = Integer.parseInt(request.getParameter("iddhide"));
                 int id_mprod = Integer.parseInt(request.getParameter("idmhide"));
-                //System.out.println("id's: "+id_dprod+", "+id_mprod);
                 dao.eliminar(id_dprod, id_mprod);
                 request.getRequestDispatcher("mainadmins.jsp").forward(request, response);
                 

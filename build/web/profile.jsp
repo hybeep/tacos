@@ -13,6 +13,17 @@
         <link rel="stylesheet" href="css/master.css">
     </head>
     <body>
+        <script>
+        function cambiarpass(){
+            var pass_a = document.getElementsByName("pass_a")[0].value;
+            var pass_n = document.getElementsByName("pass_n")[0].value;
+            if (pass_a !== null && pass_n !== null) {
+              document.getElementById("formulariocampass").submit();
+            }else{
+                alert("Datos invalidos, vuelva a intentar");
+            }
+          }
+          </script>
         <% if(session.getAttribute("email") != null){ 
         %>
         <section class="fondo" id="fondo">
@@ -43,13 +54,13 @@
                     </aside>
                     <section class="productos" id="productos">
                         <h1>Informacion Personal</h1>
-                        <form action="deleteuser.jsp" method="post">
+                        <form action="deleteuser.jsp" method="post" >
                             <input type="submit" value="Eliminar tu cuenta">
                         </form>
-                        <form action="actualizarpasswordprocess.jsp" method="post">
+                        <form action="actualizarpasswordprocess.jsp" method="post" id="formulariocampass">
                             <input type="password" name='pass_a' placeholder="Escribe tu Contraseña">
                             <input type="password" name='pass_n' placeholder="Tu Nueva Contraseña">
-                            <input type="submit" value="Modificar tu Contraseña">
+                            <input type="button" onclick="cambiarpass()" value="Modificar tu Contraseña">
                         </form>
                     </section>
                 </section>

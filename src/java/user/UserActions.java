@@ -68,7 +68,8 @@ public class UserActions {
         try{
             
             Connection con = UserActions.getConnection();
-            String q = "insert into musuario (nivel_mu ,nom_mu, appat_mu, apmat_mu, birth_mu, tel_mu, cel_mu, email_mu, pass_mu ) values (2,?, ?, ?, ?, ?, ?, ?, ?)";
+            String q = "insert into musuario (nivel_mu ,nom_mu, appat_mu, apmat_mu, birth_mu, tel_mu, cel_mu, email_mu, pass_mu, tacoins_mu)"
+                    + " values (2,?, ?, ?, ?, ?, ?, ?, ?,2000)";
             
             PreparedStatement ps = con.prepareStatement(q);
             

@@ -94,8 +94,8 @@
                         <table>
                             <tbody>
                                 <tr>
-                                    <p ></p>
-                                    <img name="id" value="<%=idprod%>" style="display:none" src="ControlerImg?id=<%=idprod%>" width="150" height="100">
+                                    <p name="id" value="<%=idprod%>" style="display:none"></p>
+                                    <img src="ControlerImg?id=<%=idprod%>" width="150" height="100">
                                 </tr>
                                 <tr>
                                     <th>

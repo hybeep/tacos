@@ -49,8 +49,8 @@
                                 System.out.println(id+" "+tacoins);
                                         
                             %>
-                                    <p><%= tacoins %></p>
-                                    <p>Compra mas tacoins en OXXO</p>
+                                    <p>$<%= tacoins %></p>
+                                    <p>Compra mas tacoins en <a href="https://www.oxxo.com/">OXXO</a></p>
                     </section>
                 </section>
                 <footer class="pie_de_pagina" id="pie_de_pagina">
